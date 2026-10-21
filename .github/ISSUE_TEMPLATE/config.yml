@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Private Beta access
+    url: https://github.com/tanishkfr/juno-beta
+    about: Ask the owner for a collaborator invitation; a copied release link does not grant access.

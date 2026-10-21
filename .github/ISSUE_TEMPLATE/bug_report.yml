@@ -1,0 +1,95 @@
+name: Bug report
+description: Report a reproducible problem in Juno Beta 0.1
+title: "[Bug] "
+labels: ["bug", "beta"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for testing Juno Beta 0.1. Please remove API keys, tokens, cookies and personal data
+        from anything you paste. Do not attach a raw log without reviewing it.
+  - type: input
+    id: version
+    attributes:
+      label: Juno version
+      description: Settings → General, or the installer filename.
+      placeholder: "Juno Beta 0.1 · 1.0.0-rc.7"
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      description: Example: Windows 11 Home 10.0.26200, x64.
+      placeholder: "Windows 11 ..."
+    validations:
+      required: true
+  - type: dropdown
+    id: feature
+    attributes:
+      label: Feature
+      options:
+        - Installer / first launch
+        - Onboarding
+        - Agent conversation
+        - Code
+        - Permissions / approval
+        - Results shelf / artifact
+        - Presentation
+        - Video
+        - Voice
+        - Settings
+        - Computer
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect Juno to do?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What happened? Include the exact message if there is one.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: The smallest sequence that shows the problem.
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+  - type: dropdown
+    id: repeats
+    attributes:
+      label: Does it repeat?
+      options:
+        - Every time
+        - Sometimes
+        - Once
+        - Not tried again
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Screenshot or safe log
+      description: Optional. Redact keys, tokens, paths and personal data.
+    validations:
+      required: false
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety check
+      options:
+        - label: I removed API keys, tokens, cookies and personal information from this report.
+          required: true
