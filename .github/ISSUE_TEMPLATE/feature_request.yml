@@ -6,14 +6,14 @@ body:
   - type: markdown
     attributes:
       value: |
-        Juno Beta 0.1 is a bounded private Beta. Feature requests are welcome, but they may be
-        deferred until after the Beta stabilization period. Please describe the user problem, not
-        only the UI you want.
+        Juno Beta 0.3 is a bounded private Beta. Feature requests are welcome, but they may be
+        deferred until after Beta stabilization. Please describe the user problem, not only the UI
+        you want.
   - type: input
     id: version
     attributes:
       label: Juno version
-      placeholder: "Juno Beta 0.1 · 1.0.0-rc.7"
+      placeholder: "Juno Beta 0.3 (1.0.0-rc.18)"
     validations:
       required: true
   - type: textarea
@@ -37,11 +37,12 @@ body:
       options:
         - Agent
         - Code
-        - Results / artifacts
+        - Library / artifacts
         - Voice
         - Settings
         - Onboarding
         - Installer / distribution
+        - Updates
         - Other
     validations:
       required: true

@@ -1,70 +1,93 @@
-# Juno Beta 0.1 — Private Tester Distribution
+# Juno Beta 0.3 (Final)
 
-This repository is the private download and feedback channel for **Juno Beta 0.1**, a Windows
-desktop workspace for a personal AI agent and coding work.
+Juno is a Windows desktop workspace for a personal AI agent and coding work. This repository is the private download and feedback channel for **Juno Beta 0.3 (Final)**, version `1.0.0-rc.18`.
 
-Juno is a local-first Electron application. It combines:
+**[Download the current build](https://github.com/tanishkfr/juno-beta/releases/tag/v1.0.0-rc.18)**
 
-- a persistent Agent with conversations, tool calls, approvals, memory, routines and artifacts;
-- a Code workspace with project attachment, Code/Ask/Orchestrate modes, exact model selection,
-  staged review, apply/discard and a terminal;
-- a Results shelf for generated presentations, PDFs and short procedural videos;
-- local Windows speech output.
+Windows 11 x64 · Private beta · Unsigned installer
 
-## Status
+## What is in Juno
 
-This is a **limited private Beta**, not a general release. It is intentionally narrow:
+- **Agent conversations** with six built-in city companions, tool calls, inline approvals, memory, routines and a result library.
+- **Code workspace** with project attachment, Code, Ask and Orchestrate modes, model selection, staged review, apply/discard, a terminal and preview surfaces.
+- **Teams and shared work** surfaces for conversation handoff and collaboration.
+- **Research** with recorded sources and citations, plus browser and computer tools when you authorize them.
+- **Local Windows speech output**, with no cloud speech service required.
+- **Local-first storage** for conversations, agents, memory, routines and artifacts. External traffic goes to the providers and tools you connect.
 
-- Windows 11 x64 only.
-- The installer is **unsigned**. SmartScreen may warn on first run; see [INSTALL.md](INSTALL.md).
-- Installation evidence comes from the owner's development PC, not an independent clean Windows
-  machine. External testers are providing the additional machine evidence.
-- Automatic repair, parallel mutating Code workers, AI-generated video and remote/cloud/mobile
-  workflows are not qualified for this Beta.
-- Human microphone dictation and voice barge-in are not qualified.
-- The 30-task frozen benchmark has not been executed.
+The Beta is deliberately narrow. Read [KNOWN_ISSUES.md](KNOWN_ISSUES.md) before installing.
 
-Read [KNOWN_ISSUES.md](KNOWN_ISSUES.md) before installing, and [PRIVACY.md](PRIVACY.md) for how
-local data and provider traffic are handled.
+## Requirements
 
-## Download and install
+- **Windows 11 x64.** Windows 10, macOS and Linux are not qualified for this Beta.
+- **A GitHub invitation.** This repository is private. Ask the owner to invite your GitHub account as a read collaborator. A copied release link does not grant access.
+- **A supported provider account.** Command Code is the best-qualified route in this Beta. Other provider rows may be available but are less tested. You need your own account and API access.
+- **About 1 GB free disk space** for the application and generated work.
+- **Optional:** Microsoft PowerPoint for slide-image previews and PDF export from generated presentations; FFmpeg on `PATH` for procedural video generation.
 
-1. Ask the owner to invite your GitHub account as a **read** collaborator on this private
-   repository. A copied release URL alone will not grant access.
-2. Open the latest prerelease:
-   <https://github.com/tanishkfr/juno-beta/releases/latest>
-3. Download `juno-1.0.0-rc.7-setup.exe` and, if you wish, verify it with `SHA256SUMS.txt`.
-4. Follow [INSTALL.md](INSTALL.md).
+## Download, verify and install
 
-The current installer is **Juno Beta 0.1**, internally `1.0.0-rc.7`.
+1. Open the [Juno Beta 0.3 (Final) release](https://github.com/tanishkfr/juno-beta/releases/tag/v1.0.0-rc.18).
+2. Download `juno-1.0.0-rc.18-setup.exe` and `SHA256SUMS.txt`.
+3. Verify the installer before running it:
+
+   ```powershell
+   Get-FileHash .\juno-1.0.0-rc.18-setup.exe -Algorithm SHA256
+   ```
+
+   Expected SHA-256:
+
+   ```text
+   D28E79636D19BAABC7CC9DA8D926519211AFF4F3BE0335641865A768404AC2A0
+   ```
+
+   Expected file size: `391,808,044` bytes.
+
+   If the hash differs, do not install. Delete the file and download it again.
+
+4. The installer is **unsigned**. Windows may show Unknown Publisher or SmartScreen. Only continue if the checksum matches, and do not disable Windows security controls.
+5. Follow [INSTALL.md](INSTALL.md) for the full installation, upgrade, troubleshooting and uninstallation steps.
+
+The rc.18 installer is a one-click, per-user installation. It installs in place over an earlier Juno Beta installation; it does not install side by side. The rc.18 NSIS installer has not been executed in a fresh independent Windows environment, so a real installed-app journey is still pending independent confirmation. See [INSTALL.md](INSTALL.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
 
 ## First run
 
-- Choose your name and a starting assistant.
-- Connect a provider you have an account for. The Beta was qualified with Command Code; other
-  routes may be visible but are not all equally qualified.
-- Try the Agent with a small question, or open **Code** and attach a disposable project.
-- Generated results appear in **Results**. A deck may need PowerPoint installed for slide previews
-  and PDF export; a video may need FFmpeg.
-- Quit from the tray if you want the background host to stop. Closing the window keeps agents
-  running when the host setting is on.
+- Complete the short setup: name, starting companion and optional provider connection.
+- The product tour introduces the real workspace and can be replayed from **Settings > Help & feedback**.
+- Try a small Agent question, or open **Code** and choose a disposable project folder.
+- Generated results appear in the **Library**. Presentations are editable PPTX files; previews and PDF export use PowerPoint when it is installed.
+
+## Updates
+
+Juno checks a signed update feed after launch and every six hours. **Settings > Updates** shows the current version, any available release and the owner's notes.
+
+- Update metadata is authenticated with Ed25519. Unsigned, tampered, downgraded or wrong-channel metadata is refused.
+- The installer is unsigned, so installation is always manual. Juno never downloads or runs the installer for you.
+- **Open Beta releases** takes you to this release page. **Verify downloaded installer** checks a downloaded file against its checksum file.
+- Builds before rc.18 cannot discover updates. Installing rc.18 is a one-time manual step for those testers.
 
 ## Feedback
 
-Use the issue templates:
+The primary route is inside Juno: **Settings > Help & feedback > Report a bug**, then **Open Email Draft**. Juno prepares a complete email to `madebytanishk@gmail.com` in your own mail app. You review it and press Send yourself; Juno does not send it and cannot confirm delivery.
 
-- [Report a bug](https://github.com/tanishkfr/juno-beta/issues/new/choose)
-- [Request a feature](https://github.com/tanishkfr/juno-beta/issues/new/choose)
+You can also open an issue in this repository if you have access. See [FEEDBACK.md](FEEDBACK.md) for what makes a useful report, how long reports are handled and how to redact private information.
 
-See [FEEDBACK.md](FEEDBACK.md) for the exact details that make a report useful. Never paste API
-keys, tokens, session cookies or private documents.
+## Known limitations
+
+- The installer is unsigned and updates are manual.
+- The rc.18 NSIS install and uninstall journey is not yet independently verified.
+- Live external Composio connections are not qualified for this Beta.
+- Phone and Tailscale connectivity are deferred.
+- No enforceable workspace-wide spending hard cap is available.
+- Real-provider workflows were not re-qualified in the final release pass; earlier live evidence exists, but provider behavior can change.
+- The full list is in [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
+
+## Privacy and licensing
+
+Read [PRIVACY.md](PRIVACY.md) for what stays on your computer, what is sent to providers or tools, how diagnostics and crash records work, and what the update check sends.
+
+Juno is Apache-2.0 licensed. The repository includes the product license, upstream NOTICE and third-party notices. See [LICENSES.md](LICENSES.md) and [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
 ## Access policy
 
-The repository is private. Testers are invited as collaborators with read access to releases and
-issues. Do not redistribute the installer or repository access. Access can be removed at any time.
-
-## Licensing
-
-Juno is Apache-2.0 licensed. The installer and this repository include the product license, the
-upstream NOTICE, and third-party notices. See [LICENSES.md](LICENSES.md).
+This repository is private and the installer is for invited testers only. Do not redistribute the installer, the repository contents or your access. Access can be removed at any time.

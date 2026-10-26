@@ -1,1 +1,1 @@
-2209ad0a24d51743cb92fdd7ae34bf9bb60f2f648be5f9e8be564180b502d3ee  juno-1.0.0-rc.7-setup.exe
+d28e79636d19baabc7cc9da8d926519211aff4f3be0335641865a768404ac2a0  juno-1.0.0-rc.18-setup.exe
