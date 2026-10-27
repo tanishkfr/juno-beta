@@ -1,8 +1,8 @@
 # Known Issues: Juno Beta 0.3 (Final)
 
-Release `1.0.0-rc.18` · 2026-10-26 · Windows 11 x64
+Release `1.0.0-rc.21` · 2026-10-27 · Windows 11 x64
 
-This is the current limitation list for Juno Beta 0.3 (Final). Older lists belong to earlier Beta releases and are not a description of rc.18.
+This is the current limitation list for Juno Beta 0.3 (Final). Older lists belong to earlier Beta releases and are not a description of rc.21.
 
 The product is a private Beta. A limitation listed here is a known boundary, not a claim that the area is production-ready.
 
@@ -10,16 +10,16 @@ The product is a private Beta. A limitation listed here is a known boundary, not
 
 1. **Windows only.** Windows 11 x64 is the supported platform. Windows 10, macOS and Linux are not qualified for this Beta.
 2. **Unsigned installer.** Windows may show Unknown Publisher or SmartScreen. Verify the published SHA-256 before running the installer. No code-signing certificate is used for this Beta.
-3. **rc.18 NSIS installation is not independently verified yet.** The published installer's size and SHA-256 match the release, and the extracted packaged application passed acceptance testing, but the rc.18 installer, first launch from the installed location and uninstaller have not been run in a fresh independent Windows environment. Report any installation failure with exact text.
-4. **In-place upgrade only.** rc.18 uses the same Windows application identity as earlier Juno Beta builds. It upgrades an existing Beta installation in place; it does not install side by side.
+3. **rc.21 NSIS installation is not independently verified yet.** The published installer's size and SHA-256 match the release, and the extracted packaged application passed acceptance testing, but the rc.21 installer, first launch from the installed location and uninstaller have not been run in a fresh independent Windows environment. Report any installation failure with exact text.
+4. **In-place upgrade only.** rc.21 uses the same Windows application identity as earlier Juno Beta builds. It upgrades an existing Beta installation in place; it does not install side by side.
 5. **Private distribution.** Testers need a GitHub collaborator invitation to this repository. A copied release URL does not grant access.
-6. **Installer size.** The installer is about 392 MB. Allow about 1 GB free for the application and generated work.
+6. **Installer size.** The installer is about 504 MB. Allow about 1 GB free for the application and generated work.
 
 ## Updates
 
-7. **Automatic update discovery works.** Juno checks an Ed25519-signed HTTPS metadata feed after launch and every six hours. Settings > Updates shows the available version and the owner's notes. This was verified in the packaged application against the live feed.
+7. **Automatic update discovery works.** Juno checks an Ed25519-signed HTTPS metadata feed after launch and every six hours. Settings > Updates shows the available version and the owner's notes. rc.21 resolves the bundled trust file from the application's own resources directory with no environment override, and this was verified in the packaged application against the live feed.
 8. **Installation is manual.** The installer is unsigned, so Juno never downloads, runs or silently installs an update. Open Beta releases leads to this release page; Verify downloaded installer checks a file against its checksum.
-9. **Builds before rc.18 cannot discover updates.** rc.17 and earlier contain no feed or public key. Installing rc.18 is a required one-time manual step for those testers.
+9. **rc.18, rc.19 and rc.20 cannot discover updates by default.** Those builds look for their trust file in the process working directory and therefore report "not configured" in a normal installation. Installing rc.21 is a required one-time manual step for those testers. rc.17 and earlier contain no feed or public key and must also install rc.21 manually.
 10. **Invalid metadata is refused.** Unsigned, tampered, downgraded, wrong-product, wrong-channel or checksum-mismatched metadata is rejected. This is intentional and means an invalid feed cannot make an update actionable.
 11. **No general downgrade support.** The update client refuses older versions. Running an older installer manually is possible, but data written by a newer build may not be understood by the older one. Back up local data before rolling back.
 

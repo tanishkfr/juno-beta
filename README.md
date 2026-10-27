@@ -1,8 +1,8 @@
 # Juno Beta 0.3 (Final)
 
-Juno is a Windows desktop workspace for a personal AI agent and coding work. This repository is the private download and feedback channel for **Juno Beta 0.3 (Final)**, version `1.0.0-rc.18`.
+Juno is a Windows desktop workspace for a personal AI agent and coding work. This repository is the private download and feedback channel for **Juno Beta 0.3 (Final)**, version `1.0.0-rc.21`.
 
-**[Download the current build](https://github.com/tanishkfr/juno-beta/releases/tag/v1.0.0-rc.18)**
+**[Download the current build](https://github.com/tanishkfr/juno-beta/releases/tag/v1.0.0-rc.21)**
 
 Windows 11 x64 · Private beta · Unsigned installer
 
@@ -27,28 +27,28 @@ The Beta is deliberately narrow. Read [KNOWN_ISSUES.md](KNOWN_ISSUES.md) before 
 
 ## Download, verify and install
 
-1. Open the [Juno Beta 0.3 (Final) release](https://github.com/tanishkfr/juno-beta/releases/tag/v1.0.0-rc.18).
-2. Download `juno-1.0.0-rc.18-setup.exe` and `SHA256SUMS.txt`.
+1. Open the [Juno Beta 0.3 (Final) release](https://github.com/tanishkfr/juno-beta/releases/tag/v1.0.0-rc.21).
+2. Download `juno-1.0.0-rc.21-setup.exe` and `SHA256SUMS.txt`.
 3. Verify the installer before running it:
 
    ```powershell
-   Get-FileHash .\juno-1.0.0-rc.18-setup.exe -Algorithm SHA256
+   Get-FileHash .\juno-1.0.0-rc.21-setup.exe -Algorithm SHA256
    ```
 
    Expected SHA-256:
 
    ```text
-   D28E79636D19BAABC7CC9DA8D926519211AFF4F3BE0335641865A768404AC2A0
+   2C3B883E41769BB7716353A0C9B134A5AA75141425B9556A9BFB4B6F673CA80D
    ```
 
-   Expected file size: `391,808,044` bytes.
+   Expected file size: `503,599,479` bytes.
 
    If the hash differs, do not install. Delete the file and download it again.
 
 4. The installer is **unsigned**. Windows may show Unknown Publisher or SmartScreen. Only continue if the checksum matches, and do not disable Windows security controls.
 5. Follow [INSTALL.md](INSTALL.md) for the full installation, upgrade, troubleshooting and uninstallation steps.
 
-The rc.18 installer is a one-click, per-user installation. It installs in place over an earlier Juno Beta installation; it does not install side by side. The rc.18 NSIS installer has not been executed in a fresh independent Windows environment, so a real installed-app journey is still pending independent confirmation. See [INSTALL.md](INSTALL.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
+The rc.21 installer is a one-click, per-user installation. It installs in place over an earlier Juno Beta installation; it does not install side by side. The rc.21 NSIS installer has not been executed in a fresh independent Windows environment, so a real installed-app journey is still pending independent confirmation. See [INSTALL.md](INSTALL.md) and [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
 
 ## First run
 
@@ -64,7 +64,8 @@ Juno checks a signed update feed after launch and every six hours. **Settings > 
 - Update metadata is authenticated with Ed25519. Unsigned, tampered, downgraded or wrong-channel metadata is refused.
 - The installer is unsigned, so installation is always manual. Juno never downloads or runs the installer for you.
 - **Open Beta releases** takes you to this release page. **Verify downloaded installer** checks a downloaded file against its checksum file.
-- Builds before rc.18 cannot discover updates. Installing rc.18 is a one-time manual step for those testers.
+- **rc.21 repairs signed update discovery.** A normally installed rc.21 finds the trust file that ships beside its own resources, so later signed releases appear automatically. Installation remains manual.
+- **Coming from rc.18, rc.19 or rc.20?** Those builds cannot find the feed by default. Install rc.21 by hand once: download it above, verify its SHA-256, and run the installer yourself. It upgrades the existing Beta in place and keeps your bots, conversations, Code sessions, memory and settings.
 
 ## Feedback
 
@@ -75,7 +76,7 @@ You can also open an issue in this repository if you have access. See [FEEDBACK.
 ## Known limitations
 
 - The installer is unsigned and updates are manual.
-- The rc.18 NSIS install and uninstall journey is not yet independently verified.
+- The rc.21 NSIS install and uninstall journey is not yet independently verified.
 - Live external Composio connections are not qualified for this Beta.
 - Phone and Tailscale connectivity are deferred.
 - No enforceable workspace-wide spending hard cap is available.

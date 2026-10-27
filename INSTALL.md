@@ -1,6 +1,6 @@
 # Installing Juno Beta 0.3 (Final)
 
-This guide covers the Windows installer for `1.0.0-rc.18`.
+This guide covers the Windows installer for `1.0.0-rc.21`.
 
 ## Requirements
 
@@ -15,11 +15,11 @@ This guide covers the Windows installer for `1.0.0-rc.18`.
 
 Open the current release:
 
-<https://github.com/tanishkfr/juno-beta/releases/tag/v1.0.0-rc.18>
+<https://github.com/tanishkfr/juno-beta/releases/tag/v1.0.0-rc.21>
 
 Download:
 
-- `juno-1.0.0-rc.18-setup.exe`, the installer.
+- `juno-1.0.0-rc.21-setup.exe`, the installer.
 - `SHA256SUMS.txt`, the checksum file for this release.
 
 The release is a regular private release on GitHub. The version still carries the `rc` suffix because this is a Beta release candidate, not a claim of 1.0 product maturity.
@@ -29,16 +29,16 @@ The release is a regular private release on GitHub. The version still carries th
 In PowerShell, from the download folder:
 
 ```powershell
-Get-FileHash .\juno-1.0.0-rc.18-setup.exe -Algorithm SHA256
+Get-FileHash .\juno-1.0.0-rc.21-setup.exe -Algorithm SHA256
 Get-Content .\SHA256SUMS.txt
 ```
 
-Expected file size: `391,808,044` bytes.
+Expected file size: `503,599,479` bytes.
 
 Expected SHA-256:
 
 ```text
-D28E79636D19BAABC7CC9DA8D926519211AFF4F3BE0335641865A768404AC2A0
+2C3B883E41769BB7716353A0C9B134A5AA75141425B9556A9BFB4B6F673CA80D
 ```
 
 The hash is not case-sensitive. If it differs from `SHA256SUMS.txt`, stop. Delete the file and download it again. Do not install a file that does not match.
@@ -56,9 +56,9 @@ SmartScreen, Unknown Publisher and the absence of a signature are expected for t
 
 ## Install
 
-The rc.18 installer is a one-click, per-user NSIS installation.
+The rc.21 installer is a one-click, per-user NSIS installation.
 
-1. Run `juno-1.0.0-rc.18-setup.exe`.
+1. Run `juno-1.0.0-rc.21-setup.exe`.
 2. The installer places the application in `%LOCALAPPDATA%\Programs\juno`.
 3. It creates a **Juno** Start menu entry and a desktop shortcut.
 4. It does not launch Juno automatically. Open Juno from the shortcut.
@@ -68,7 +68,7 @@ The installation uses the same Windows application identity as earlier Juno Beta
 
 ### Important verification note
 
-The rc.18 NSIS installer has **not** been executed in a fresh, independent Windows environment. The extracted packaged application was tested successfully, including onboarding, reporting, updates and restart behavior. A complete rc.18 install, first launch from the installed location, and uninstall journey still needs independent confirmation.
+The rc.21 NSIS installer has **not** been executed in a fresh, independent Windows environment. The extracted packaged application was tested successfully, including onboarding, reporting, updates and restart behavior. A complete rc.18 install, first launch from the installed location, and uninstall journey still needs independent confirmation.
 
 If the installer fails, stops early or leaves a broken shortcut, report it through the feedback channel with the exact error text and your Windows version. Do not repeatedly reinstall over a failing installation.
 
@@ -79,7 +79,7 @@ If the installer fails, stops early or leaves a broken shortcut, report it throu
 3. No Juno account is required. The app is local-first.
 4. Connect a provider you have an account for. Provider keys are stored through the operating system credential store.
 5. Take the optional product tour. It can be replayed later from **Settings > Help & feedback**.
-6. Open **Settings > General** to confirm the version shows `Juno Beta 0.3` and `1.0.0-rc.18`.
+6. Open **Settings > General** to confirm the version shows `Juno Beta 0.3` and `1.0.0-rc.21`.
 
 ## Connecting a provider
 
@@ -91,9 +91,10 @@ If a provider shows an authentication or connection error, check the provider's 
 
 ## Upgrading from an earlier Beta
 
-- rc.18 installs **in place** over an existing Juno Beta. Bots, conversations, settings and credentials are preserved by the upgrade.
-- Testers on rc.17 or earlier must install rc.18 manually. Those builds contain no update feed and cannot discover this release.
-- After rc.18, future releases can be discovered through the signed update feed. Installation stays manual because the installer is unsigned.
+- rc.21 installs **in place** over an existing Juno Beta. Bots, conversations, Code sessions, settings and credentials are preserved by the upgrade.
+- Testers on rc.18, rc.19 or rc.20 must install rc.21 manually. Those builds cannot locate their bundled update-trust file by default and cannot discover this release.
+- Testers on rc.17 or earlier must also install rc.21 manually. Those builds contain no update feed.
+- From rc.21 onward, later signed releases are discoverable through the signed update feed. Installation stays manual because the installer is unsigned.
 - Keep the previous installer until the new build opens cleanly.
 
 ## Local data and rollback
