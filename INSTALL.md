@@ -56,6 +56,20 @@ Expected SHA-256:
 The hash is not case-sensitive. If it does not match, stop. Delete the file and
 download it again. Do not install a file whose provenance you cannot verify.
 
+`SHA256SUMS.txt` is a standard GNU checksum file: one
+`<64-character-lowercase-hash><two spaces><exact filename>` record per line,
+UTF-8 without a byte-order mark, LF line endings, and no extra fields. File
+sizes are recorded in `artifacts.json`. On Linux, WSL, macOS or Git Bash, put
+both installers and `SHA256SUMS.txt` in one folder and run:
+
+```sh
+sha256sum --check SHA256SUMS.txt
+```
+
+The v0.4.0 Git tag's automatically generated source archives are a historical
+snapshot of the repository at release time. The release asset and `main` carry
+the corrected checksum file; neither installer binary changed.
+
 ## Unsigned installer
 
 The installer is **not code-signed**.

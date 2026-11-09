@@ -73,6 +73,10 @@ Expected:
 
 If the hash differs, do not install. Delete the file and download it again.
 
+`SHA256SUMS.txt` uses the standard GNU format (`<hash><two spaces><filename>`)
+with no extra fields, so on Linux, WSL or Git Bash you can also run
+`sha256sum --check SHA256SUMS.txt` with both installers in the same folder.
+
 The installer is **unsigned**. Windows may show **Unknown Publisher** or a
 SmartScreen warning. Continue only if the checksum matches. Do **not** disable
 Microsoft Defender, SmartScreen, Smart App Control or any other security
