@@ -1,1 +1,8 @@
-2c3b883e41769bb7716353a0c9b134a5aa75141425b9556a9bfb4b6f673ca80d  juno-1.0.0-rc.21-setup.exe
+﻿# Juno v0.4.0 Beta - release checksums
+#
+# Verify with:  sha256sum --check SHA256SUMS.txt
+# The trailing byte count is informational; sha256sum ignores it.
+
+4af07ecd32f8769524a7a72e027930e85cf793b46c23e1ab49c7305877be2942  juno-0.4.0-setup.exe  (271652163 bytes)
+554ca46e69903e44dbad1aecb273737522b6c89cd6da0412fc0985f19319bbe8  juno-0.4.0-full-setup.exe  (488536955 bytes)
+

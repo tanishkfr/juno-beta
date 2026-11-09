@@ -1,12 +1,12 @@
 name: Bug report
-description: Report a reproducible problem in Juno Beta 0.3
+description: Report a reproducible problem in Juno v0.4.0 Beta
 title: "[Bug] "
 labels: ["bug", "beta"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for testing Juno Beta 0.3. Please remove API keys, tokens, cookies and personal data
+        Thanks for testing Juno v0.4.0 Beta. Please remove API keys, tokens, cookies and personal data
         from anything you paste. Do not attach a raw log without reviewing it.
 
         For a private report from inside Juno, use Settings > Help & feedback > Report a bug, then
@@ -16,7 +16,7 @@ body:
     attributes:
       label: Juno version
       description: Settings > General, or the installer filename.
-      placeholder: "Juno Beta 0.3 (1.0.0-rc.18)"
+      placeholder: "Juno v0.4.0 Beta (0.4.0)"
     validations:
       required: true
   - type: input

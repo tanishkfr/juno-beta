@@ -1,6 +1,6 @@
-# Privacy
+﻿# Privacy
 
-This page describes the data handling of **Juno Beta 0.3 (Final)**, version `1.0.0-rc.18`. It is a plain description of the Beta implementation, not a legal privacy policy and not a substitute for your AI provider's terms.
+This page describes the data handling of **Juno v0.4.0 Beta**, version `0.4.0`. It is a plain description of the Beta implementation, not a legal privacy policy and not a substitute for your AI provider's terms.
 
 Juno is local-first, but it is not offline. It makes network requests when you use a provider, a browser tool, research, or the update check.
 
@@ -15,7 +15,7 @@ Juno stores its own data in two local folders:
 
 These folders can contain private conversations, prompts, results and file paths. Treat them as private data.
 
-The local server listens on loopback only. Beta 0.3 does not expose a public inbound port by default. Remote phone, Tailscale and mobile companion flows are deferred for this Beta.
+The local server listens on loopback only. Juno v0.4.0 does not expose a public inbound port by default. Remote phone, Tailscale and mobile companion flows are deferred for this Beta.
 
 ## What leaves your computer
 
@@ -65,7 +65,7 @@ A copied Juno profile is only usable by the same Windows user and machine creden
 
 ## What Juno does not collect
 
-Beta 0.3 has no product telemetry, no analytics endpoint, no advertising identifier and no automatic crash upload. It does not create a Juno account or require a cloud sign-in.
+Juno v0.4.0 has no product telemetry, no analytics endpoint, no advertising identifier and no automatic crash upload. It does not create a Juno account or require a cloud sign-in.
 
 This does not cover data collected by the providers and websites you choose to use.
 
@@ -80,10 +80,11 @@ This does not cover data collected by the providers and websites you choose to u
 ## Third parties
 
 - AI providers, model vendors and any websites you visit are third parties with their own terms.
-- GitHub hosts this private repository and the public update metadata.
+- GitHub hosts this public repository and the public update metadata.
 - Microsoft PowerPoint and FFmpeg are optional local tools, not bundled services.
 - Third-party notices and licenses are in [LICENSES.md](LICENSES.md) and [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
 ## Questions
 
-Use the private feedback route in [FEEDBACK.md](FEEDBACK.md) for questions about this Beta's data handling. Do not include secrets or private documents in a report.
+Use the feedback route in [FEEDBACK.md](FEEDBACK.md) for questions about this Beta's data handling. Do not include secrets or private documents in a report.
+

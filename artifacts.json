@@ -1,0 +1,78 @@
+﻿{
+  "schema": "juno-release-artifacts-1",
+  "product": "Juno",
+  "version": "0.4.0",
+  "releaseTitle": "Juno v0.4.0 Beta â€” Intelligence & Efficiency",
+  "releaseType": "public-beta",
+  "platform": "win32-x64",
+  "minimumWindows": "Windows 11 x64",
+  "releaseDate": "2026-11-10",
+  "sourceCommit": "3ba7969549a5da6942d7a2395c9acecfb5e607aa",
+  "buildIdentity": "Juno",
+  "appId": "com.agent.app",
+  "signing": {
+    "authenticode": "NotSigned",
+    "publisher": null,
+    "smartScreenReputation": false
+  },
+  "updates": {
+    "mode": "manual",
+    "electronUpdater": "inert (app-update.yml uses updates.invalid)",
+    "signedMetadata": "Ed25519-signed announcement feed; never downloads or runs an installer",
+    "signedAutomaticUpdateBridge": "not qualified"
+  },
+  "artifacts": [
+    {
+      "variant": "compact",
+      "fileName": "juno-0.4.0-setup.exe",
+      "bytes": 271652163,
+      "sha256": "4af07ecd32f8769524a7a72e027930e85cf793b46c23e1ab49c7305877be2942",
+      "default": true,
+      "installedBytes": 1054139148,
+      "includes": [
+        "Bot Mode",
+        "Code Mode and Boreal",
+        "Council",
+        "/btw",
+        "model/provider integrations",
+        "Windows computer control",
+        "skills and tools",
+        "memory, routines and persistence",
+        "Windows speech fallback",
+        "optional browser installer",
+        "optional Whisper model installer"
+      ],
+      "omits": [
+        "bundled browser engine",
+        "Whisper base.en weights"
+      ]
+    },
+    {
+      "variant": "full-offline",
+      "fileName": "juno-0.4.0-full-setup.exe",
+      "bytes": 488536955,
+      "sha256": "554ca46e69903e44dbad1aecb273737522b6c89cd6da0412fc0985f19319bbe8",
+      "default": false,
+      "installedBytes": 1499712743,
+      "includes": [
+        "the compact application",
+        "bundled pinned browser engine",
+        "Whisper base.en model"
+      ],
+      "notes": "Offline-capable runtime assets. External model providers still need internet access, an account and quota."
+    }
+  ],
+  "verification": {
+    "installerExit": "0",
+    "compactInstallSeconds": 52.21,
+    "fullInstallSeconds": 38.4,
+    "uninstallPreservesUserData": true,
+    "reinstallDetectsOptionalAssets": true,
+    "upgradeFrom": "1.0.0-rc.18",
+    "upgradePreservesData": true,
+    "rollbackTo": "1.0.0-rc.18",
+    "rollbackRestoresBinary": true,
+    "sqliteIntegrity": "ok"
+  }
+}
+

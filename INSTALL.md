@@ -1,143 +1,233 @@
-# Installing Juno Beta 0.3 (Final)
+# Installing Juno v0.4.0 Beta
 
-This guide covers the Windows installer for `1.0.0-rc.21`.
+This guide covers the Windows x64 installers for **Juno v0.4.0 Beta —
+Intelligence & Efficiency**.
 
 ## Requirements
 
-- **Windows 11 x64.** Windows 10, macOS and Linux are not qualified for this Beta.
-- **A GitHub account with read access to this private repository.** Ask the owner for an invitation. A copied release link will not work without access.
-- **A supported provider account.** Command Code is the best-qualified route in this Beta; other providers may be visible but are less tested.
-- **About 1 GB free disk space** for the application and generated work.
-- **Optional:** Microsoft PowerPoint for slide previews and PDF export from generated presentations.
-- **Optional:** FFmpeg on `PATH` for procedural video generation.
+- **Windows 11 x64.** Windows 11 is the qualified platform. Windows 10, macOS,
+  Linux, ARM64 and 32-bit Windows are not qualified for this Beta.
+- **A supported provider account** for external models. Juno does not include
+  model capacity, subscriptions or quota.
+- **Network access** for provider calls and for the optional browser/Whisper
+  downloads in the compact build.
+- **Disk space:** about 1.1 GB for the compact application, or about 1.6 GB if
+  you install both optional assets later. The full/offline variant needs about
+  1.5 GB. Leave additional space for projects, generated files and backups.
+- **No administrator rights required.** The installer is per-user.
 
-## Download
+## Choose a download
 
-Open the current release:
+| Variant | File | Size | Notes |
+|---|---|---:|---|
+| Compact (recommended) | `juno-0.4.0-setup.exe` | 271,652,163 B | Omits the browser engine and Whisper weights; installs them on request. |
+| Full/offline | `juno-0.4.0-full-setup.exe` | 488,536,955 B | Includes the pinned browser engine and Whisper base.en model. External providers still need the internet. |
 
-<https://github.com/tanishkfr/juno-beta/releases/tag/v1.0.0-rc.21>
+Both variants contain the same application code. The full variant only adds the
+two large optional runtime assets.
 
-Download:
+## Download and verify
 
-- `juno-1.0.0-rc.21-setup.exe`, the installer.
-- `SHA256SUMS.txt`, the checksum file for this release.
+Download the installer and `SHA256SUMS.txt` from the official release:
 
-The release is a regular private release on GitHub. The version still carries the `rc` suffix because this is a Beta release candidate, not a claim of 1.0 product maturity.
-
-## Verify the download
+<https://github.com/tanishkfr/juno-beta/releases/tag/v0.4.0>
 
 In PowerShell, from the download folder:
 
 ```powershell
-Get-FileHash .\juno-1.0.0-rc.21-setup.exe -Algorithm SHA256
+Get-FileHash .\juno-0.4.0-setup.exe -Algorithm SHA256
 Get-Content .\SHA256SUMS.txt
 ```
 
-Expected file size: `503,599,479` bytes.
+For the full variant:
+
+```powershell
+Get-FileHash .\juno-0.4.0-full-setup.exe -Algorithm SHA256
+Get-Content .\SHA256SUMS.txt
+```
 
 Expected SHA-256:
 
 ```text
-2C3B883E41769BB7716353A0C9B134A5AA75141425B9556A9BFB4B6F673CA80D
+4af07ecd32f8769524a7a72e027930e85cf793b46c23e1ab49c7305877be2942  juno-0.4.0-setup.exe
+554ca46e69903e44dbad1aecb273737522b6c89cd6da0412fc0985f19319bbe8  juno-0.4.0-full-setup.exe
 ```
 
-The hash is not case-sensitive. If it differs from `SHA256SUMS.txt`, stop. Delete the file and download it again. Do not install a file that does not match.
+The hash is not case-sensitive. If it does not match, stop. Delete the file and
+download it again. Do not install a file whose provenance you cannot verify.
 
 ## Unsigned installer
 
-The installer is **not code-signed**. Windows SmartScreen may show "Windows protected your PC", or the publisher may appear as **Unknown publisher**.
+The installer is **not code-signed**.
 
-- Continue only if the SHA-256 matches the value above.
-- If SmartScreen appears, choose **More info**, confirm the app name, then choose **Run anyway**.
-- Do not disable Windows Defender, SmartScreen, Smart App Control or any other security control.
-- If Windows blocks the installer and you cannot proceed safely, stop and report the exact message. Do not work around a security block.
-
-SmartScreen, Unknown Publisher and the absence of a signature are expected for this Beta. They do not mean the download is corrupted. The checksum is the integrity check; it is not a publisher identity check.
+- Windows may show **Unknown Publisher** or “Windows protected your PC”
+  (SmartScreen).
+- If SmartScreen appears, choose **More info**, confirm the file name, then
+  **Run anyway** — only after the SHA-256 matches.
+- Do **not** disable Microsoft Defender, SmartScreen, Smart App Control,
+  antivirus software or any other Windows security control.
+- Some managed or enterprise PCs block unsigned installers by policy. If
+  Windows blocks the installer and you cannot proceed safely, stop and contact
+  your administrator. Do not work around a security block.
+- The checksum proves integrity, not publisher identity. There is no
+  Authenticode signature for this Beta.
 
 ## Install
 
-The rc.21 installer is a one-click, per-user NSIS installation.
-
-1. Run `juno-1.0.0-rc.21-setup.exe`.
-2. The installer places the application in `%LOCALAPPDATA%\Programs\juno`.
-3. It creates a **Juno** Start menu entry and a desktop shortcut.
-4. It does not launch Juno automatically. Open Juno from the shortcut.
-5. Windows registers **Juno** in **Settings > Apps > Installed apps** with an uninstaller.
-
-The installation uses the same Windows application identity as earlier Juno Beta builds, so the installer is configured as an **in-place upgrade** of an existing Juno Beta. It does not install side by side, and it does not create a second Juno installation.
-
-### Important verification note
-
-The rc.21 NSIS installer has **not** been executed in a fresh, independent Windows environment. The extracted packaged application was tested successfully, including onboarding, reporting, updates and restart behavior. A complete rc.18 install, first launch from the installed location, and uninstall journey still needs independent confirmation.
-
-If the installer fails, stops early or leaves a broken shortcut, report it through the feedback channel with the exact error text and your Windows version. Do not repeatedly reinstall over a failing installation.
+1. Close any running Juno window.
+2. Run the installer. The compact and full installers share the same
+   application identity, so installing one over the other is an in-place
+   replacement, not a second installation.
+3. The installer places the application in
+   `%LOCALAPPDATA%\Programs\juno`, creates a **Juno** Start menu entry and a
+   desktop shortcut, and registers **Juno** in **Settings > Apps > Installed
+   apps**.
+4. The installer does not launch Juno automatically.
+5. Open Juno from the Start menu or desktop shortcut.
 
 ## First run
 
-1. Open Juno from the Start menu or desktop shortcut.
-2. Complete onboarding: display name, starting companion, optional provider connection, appearance and privacy.
-3. No Juno account is required. The app is local-first.
-4. Connect a provider you have an account for. Provider keys are stored through the operating system credential store.
-5. Take the optional product tour. It can be replayed later from **Settings > Help & feedback**.
-6. Open **Settings > General** to confirm the version shows `Juno Beta 0.3` and `1.0.0-rc.21`.
+1. Complete onboarding: display name, starting companion, optional provider
+   connection, appearance and privacy.
+2. No Juno account is required. Storage is local-first.
+3. Connect a provider you have an account for. Credentials are stored through
+   the Windows credential store; Juno reports whether a credential is
+   configured, never its value.
+4. Run a short Bot Mode question.
+5. Optional: open **Code**, choose a disposable project folder, and try a small
+   edit.
+6. Optional: install the browser engine or the local Whisper model from the
+   relevant settings surface. Neither downloads during ordinary startup.
 
-## Connecting a provider
+## Optional runtime downloads
 
-Open **Settings > Providers** (or the provider step in setup) and connect a supported route. Command Code is the best-qualified route in this Beta; other routes may be present but are less tested.
+### Browser automation
 
-A provider key is write-only through the app: Juno reports whether a credential is configured, never the value. Provider usage, limits and billing are governed by your provider account, not by Juno.
+The compact installer does not include the browser engine. Installing it
+downloads the pinned agent-browser binary and Chrome for Testing:
 
-If a provider shows an authentication or connection error, check the provider's own dashboard and your network before reporting a Juno bug. Include the exact Juno error code and the provider name, but never the key.
+- about **160 MB** download;
+- about **450 MB** on disk;
+- verified by size and SHA-256 before use.
 
-## Upgrading from an earlier Beta
+The full/offline variant includes the engine, so no download is needed for
+browser automation.
 
-- rc.21 installs **in place** over an existing Juno Beta. Bots, conversations, Code sessions, settings and credentials are preserved by the upgrade.
-- Testers on rc.18, rc.19 or rc.20 must install rc.21 manually. Those builds cannot locate their bundled update-trust file by default and cannot discover this release.
-- Testers on rc.17 or earlier must also install rc.21 manually. Those builds contain no update feed.
-- From rc.21 onward, later signed releases are discoverable through the signed update feed. Installation stays manual because the installer is unsigned.
-- Keep the previous installer until the new build opens cleanly.
+### Local Whisper
 
-## Local data and rollback
+The compact installer includes the Whisper engine but not the weights.
 
-Juno keeps data in two places:
+- The model is `ggml-base.en.bin`, **147,964,211 bytes**, SHA-256
+  `a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002`.
+- Juno downloads it only when you ask, verifies the size and hash, and keeps it
+  under `%APPDATA%\Juno\optional-assets`.
+- **System.Speech works immediately** and remains the fallback. You do not need
+  the Whisper model to use speech output.
 
-```text
-%APPDATA%\Juno     desktop state, logs, encrypted credentials, crash records
-%USERPROFILE%\.juno  bots, conversations, memory, routines, artifacts
-```
+## Upgrade from Juno Beta 0.3
 
-Back up both folders before a significant upgrade if the work matters to you. The folders contain private conversations and credentials; store any backup securely.
+The public Beta 0.3 line used versions `1.0.0-rc.17` to `1.0.0-rc.21`. Version
+`0.4.0` restarts the public version number.
 
-To roll back, close Juno and run the previous installer again. The install is in place, so the older application replaces the newer one. Your local data is not deleted by the installer. A downgrade is not formally qualified: data written by a newer build may not be understood by an older one. Keep a backup and report any downgrade problem.
+### Supported manual path
+
+A direct manual upgrade from `1.0.0-rc.18` to `0.4.0` was tested with data
+preservation. The installer uses the same identity as Beta 0.3:
+
+- appId `com.agent.app`;
+- product name `Juno`;
+- install directory `%LOCALAPPDATA%\Programs\juno`;
+- data root `%USERPROFILE%\.juno`;
+- Electron user data `%APPDATA%\Juno`.
+
+The installer upgrades in place. It does not create a second copy.
+
+### Before upgrading
+
+1. Close Juno completely, including the tray icon.
+2. Back up:
+   - `%USERPROFILE%\.juno` (conversations, bots, memory, routines, work items);
+   - `%APPDATA%\Juno` (credentials, window state, local settings);
+   - the previous installer (`juno-1.0.0-rc.18-setup.exe` or
+     `juno-1.0.0-rc.21-setup.exe`) for rollback.
+3. Keep the backup until the new version has opened, shown your bots and
+   conversations, and completed a short provider turn.
+
+### What is preserved
+
+The tested upgrade preserved:
+
+- bots and conversations;
+- work items and research records;
+- provider configuration and credentials;
+- settings and memory;
+- SQLite integrity (`PRAGMA integrity_check = ok` for the tested databases).
+
+### What is not supported
+
+- The **signed automatic-update bridge** from `1.0.0-rc` to `0.4.0` is not
+  qualified. Do not wait for an in-app automatic update. Download and run the
+  installer manually.
+- A downgrade from `0.4.0` back to Beta 0.3 is possible by running the old
+  installer, but data written by `0.4.0` may not be understood by the older
+  build. Back up first.
+- In-app “Verify downloaded installer” accepts the 0.4.0 installer and the
+  historical `1.0.0-rc` line. It still refuses arbitrary downgrades and
+  cross-channel files.
+
+## Uninstall and data preservation
+
+1. Close Juno.
+2. Open **Settings > Apps > Installed apps**, find **Juno**, and choose
+   **Uninstall**.
+3. The uninstaller removes the application directory and the Windows uninstall
+   entry. It also removes the `juno://` handler and the app's notification
+   registration.
+4. It **does not delete**:
+   - `%USERPROFILE%\.juno`;
+   - `%APPDATA%\Juno`;
+   - optional Whisper/browser assets under `%APPDATA%\Juno`.
+5. Reinstalling Juno detects the existing data and optional assets.
+
+To remove all local data, uninstall Juno and then delete those two folders
+manually. Export anything you need first.
+
+## Rollback
+
+Reinstall the previous Beta 0.3 installer (`1.0.0-rc.18` or `1.0.0-rc.21`)
+over `0.4.0`. Because the identity and install directory are unchanged, this is
+an in-place replacement. Keep a backup of `%USERPROFILE%\.juno` and
+`%APPDATA%\Juno` in case the older build cannot read newer data.
 
 ## Troubleshooting
 
-- **SmartScreen or Unknown Publisher:** expected for the unsigned Beta. Verify the SHA-256 before continuing.
-- **The installer does not start:** confirm Windows 11 x64, that the file is not blocked by policy, and that you have free disk space. Report the exact message; do not disable security controls.
-- **Juno does not start:** check `%APPDATA%\Juno\logs\server.log` and `%APPDATA%\Juno\logs\desktop-crashes.log`. Remove API keys, private paths and personal content before sharing.
-- **Provider not ready:** open **Settings > Providers** and confirm the connection. A key cannot be read back; re-enter it if the provider revoked it.
-- **Code workspace unavailable:** check the Code availability row above the composer in Code mode and the runtime status it reports. Report the exact status text if it stays unavailable.
-- **Slide preview or PDF export missing:** install Microsoft PowerPoint, or download the editable PPTX and open it directly.
-- **Video generation unavailable:** install FFmpeg and ensure `ffmpeg` is on `PATH`.
-- **Juno keeps running after the window closes:** this is the background host setting. Use the tray menu to quit, or turn off "Keep Juno running when I close the window" in Settings.
+**“Windows protected your PC”**
+: Verify the SHA-256 first. Choose **More info > Run anyway** only if it
+matches. Do not disable security controls.
 
-## Uninstall
+**The installer is blocked by your organization**
+: Stop. Ask your administrator. Juno cannot bypass an enterprise application
+control policy.
 
-Use **Settings > Apps > Installed apps > Juno > Uninstall**, or run:
+**Juno opens but no model is available**
+: Connect a provider in setup or **Settings > Providers**. Check the provider's
+dashboard for subscription, quota and network requirements.
 
-```text
-%LOCALAPPDATA%\Programs\juno\Uninstall Juno.exe
-```
+**Browser automation says the runtime is missing**
+: Use the install action in Browser settings. It downloads the pinned engine.
+The full/offline installer includes it.
 
-Uninstall removes the application, shortcuts and its Windows registration.
+**Speech uses the robotic voice**
+: System.Speech is the fallback. Install the optional Whisper model in Speech
+settings for local Whisper transcription. Whisper is speech-to-text; spoken
+output still uses the Windows voice.
 
-Uninstall does **not** delete your local data by default:
+**The app does not start after an abrupt shutdown**
+: Launch it again. The next start clears a stale data-directory lease. If it
+still fails, close all Juno processes, keep the data folders, and report the
+exact error.
 
-- `%APPDATA%\Juno`
-- `%USERPROFILE%\.juno`
-
-Delete those folders manually only if you intend to remove all local Juno data. Deletion is permanent. Back up anything you need first.
-
-## Getting help
-
-Use **Settings > Help & feedback > Report a bug** and choose **Open Email Draft**, or open an issue in this repository. See [FEEDBACK.md](FEEDBACK.md) for the details that make a report useful and for the privacy rules.
+**You need to report a problem**
+: Use **Settings > Help & feedback > Report a bug**, or open an issue at
+<https://github.com/tanishkfr/juno-beta/issues>. Never include API keys,
+tokens, cookies or private documents.

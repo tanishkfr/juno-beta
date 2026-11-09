@@ -1,6 +1,6 @@
 # Licenses
 
-Juno Beta 0.3 is distributed under the **Apache License 2.0**. The full text is in
+Juno v0.4.0 Beta is distributed under the **Apache License 2.0**. The full text is in
 [LICENSE](LICENSE), and the preserved upstream attribution is in [NOTICE](NOTICE).
 
 ## Provenance
@@ -33,9 +33,9 @@ The packaged application includes third-party software with its own terms. Full 
 
 ## Redistribution
 
-Do not redistribute the private installer or this repository. The private Beta access is granted to
-named testers only. If you need to evaluate the source, use the private source repository under the
-terms granted by its owner.
+The installers are published in this public repository for beta evaluation. Share the official
+release link rather than a re-uploaded copy, and do not modify or repackage the installer. The
+product source repository is separate and is not distributed through this repository.
 
 No third-party software was added to hide a missing dependency. Optional tools such as Microsoft
 PowerPoint and FFmpeg are not bundled; their own licenses apply if you install them.

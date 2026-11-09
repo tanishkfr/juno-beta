@@ -1,6 +1,6 @@
-# Feedback and bug reports
+﻿# Feedback and bug reports
 
-Juno Beta 0.3 is small and private. Specific, reproducible reports are more useful than a score.
+Juno v0.4.0 Beta is public but still a beta. Specific, reproducible reports are more useful than a score.
 
 ## Primary route: from inside Juno
 
@@ -52,15 +52,15 @@ When Juno records an unexpected error, it keeps a local crash record. On the nex
 
 ## Alternative route: GitHub Issues
 
-If you have access to this private repository, you can open an issue:
+You can open an issue in this public repository:
 
 <https://github.com/tanishkfr/juno-beta/issues/new/choose>
 
-You must be an invited read collaborator. Do not post logs, keys or private documents in a public place, and do not copy the private repository contents elsewhere.
+Do not post logs, keys or private documents. Remove credentials and personal data before posting.
 
 ## What makes a useful report
 
-1. **Juno version.** Settings > General shows the version, for example `Juno Beta 0.3 · 1.0.0-rc.18`.
+1. **Juno version.** Settings > General shows the version, for example `Juno v0.4.0 Beta | 0.4.0`.
 2. **Windows version.** For example Windows 11 24H2, build 26200, x64.
 3. **Feature.** Agent, Code, Library, Research, voice, Settings, onboarding or installer.
 4. **Expected behavior.** What you thought would happen.
@@ -101,4 +101,6 @@ Reports are triaged by severity:
 - broken Agent or Code core path: next candidate;
 - visual or copy issue: batched into a later Beta pass.
 
-This is a private Beta with no guaranteed response time or support SLA. The owner may ask for a reproduction in a disposable project. Do not test destructive actions on work you cannot lose.
+This is a public Beta with no guaranteed response time or support SLA. The owner may ask for a reproduction in a disposable project. Do not test destructive actions on work you cannot lose.
+
+
