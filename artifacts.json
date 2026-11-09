@@ -1,8 +1,8 @@
-﻿{
+{
   "schema": "juno-release-artifacts-1",
   "product": "Juno",
   "version": "0.4.0",
-  "releaseTitle": "Juno v0.4.0 Beta â€” Intelligence & Efficiency",
+  "releaseTitle": "Juno v0.4.0 Beta — Intelligence & Efficiency",
   "releaseType": "public-beta",
   "platform": "win32-x64",
   "minimumWindows": "Windows 11 x64",
@@ -75,4 +75,3 @@
     "sqliteIntegrity": "ok"
   }
 }
-
