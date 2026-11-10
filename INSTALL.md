@@ -165,10 +165,10 @@ The installer upgrades in place. It does not create a second copy.
 
 The production upgrade test preserved:
 
-- 17 existing bots;
+- existing bots and conversations;
 - existing configuration;
-- 25 work items;
-- conversation and user data across install, uninstall and reinstall;
+- work items and research records;
+- user data across install, uninstall and reinstall;
 - provider configuration and credentials;
 - memory, routines and settings.
 
