@@ -1,6 +1,6 @@
 ﻿# Feedback and bug reports
 
-Juno v0.4.0 Beta is public but still a beta. Specific, reproducible reports are more useful than a score.
+Juno v0.4.1 Beta is public but still a beta. Specific, reproducible reports are more useful than a score.
 
 ## Primary route: from inside Juno
 
@@ -60,7 +60,7 @@ Do not post logs, keys or private documents. Remove credentials and personal dat
 
 ## What makes a useful report
 
-1. **Juno version.** Settings > General shows the version, for example `Juno v0.4.0 Beta | 0.4.0`.
+1. **Juno version.** Settings > General shows the version, for example `Juno v0.4.1 Beta | 0.4.1`.
 2. **Windows version.** For example Windows 11 24H2, build 26200, x64.
 3. **Feature.** Agent, Code, Library, Research, voice, Settings, onboarding or installer.
 4. **Expected behavior.** What you thought would happen.

@@ -55,8 +55,7 @@ A deployment explicitly configured for hosted sign-in (`OMB_ADMIN_URL`,
 `OMB_ADMIN_WORKSPACE`, `OMB_ADMIN_MEMBERSHIP`) **fails closed**: it refuses hosted
 access rather than falling back to local email or QR credentials. That decision
 is made from the environment alone and needs no layer, which is what makes it a
-security property rather than a feature. See
-[`docs/verification/enterprise-license.md`](docs/verification/enterprise-license.md).
+security property rather than a feature.
 
 `server/hosted-contract.ts`, `SessionRegistry.issuePortal()` and `server/fleet*.ts`
 remain in the tree as part of the OSS seam contract, permanently unreachable from

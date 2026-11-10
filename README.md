@@ -1,10 +1,10 @@
-# Juno v0.4.0 Beta — Intelligence & Efficiency
+# Juno v0.4.1 Beta — Unified Agent Runtime
 
 Juno is a Windows desktop workspace for a personal AI agent and coding work.
 This repository is the public download and feedback channel for the
-**Juno v0.4.0 Beta**.
+**Juno v0.4.1 Beta**.
 
-**[Download Juno v0.4.0 Beta](https://github.com/tanishkfr/juno-beta/releases/tag/v0.4.0)**
+**[Download Juno v0.4.1 Beta](https://github.com/tanishkfr/juno-beta/releases/tag/v0.4.1)**
 
 Windows 11 x64 · Public Beta · Unsigned installer · Manual updates
 
@@ -24,31 +24,77 @@ Windows 11 x64 · Public Beta · Unsigned installer · Manual updates
   items stay on this PC. Traffic goes only to the providers and tools you
   connect.
 
-## What changed since Beta 0.3
+## What changed in v0.4.1
 
-- **Intelligence & Efficiency.** Council and `/btw` add deliberate planning,
-  independent review and side conversations without changing the ordinary chat
-  path.
-- **Faster everyday replies on the qualified route.** The earlier
-  CommandCode/DeepSeek qualification measured about 39–44 ms of Juno dispatch
-  and 2.4–3.0 seconds for a short warm reply. The final packaged Codex smoke
-  measured about 5–7 seconds end to end. Provider latency dominates; these are
-  measurements, not guarantees.
-- **Smaller compact installer.** About 272 MB, down from about 504 MB for the
-  previous candidate. Installed compact footprint is about 1.05 GB.
-- **Reliability and recovery.** Stale data-directory lease recovery on Windows
-  11 without `wmic`, a bounded renderer reload after a crash, and clearer
-  provider errors.
-- **Optional runtime downloads.** The compact build omits the browser engine and
-  local Whisper weights; both are pinned, user-requested downloads. The
-  full/offline variant includes them.
+**One shared task system now runs across Juno's execution experiences.** Bot
+Mode, Code Mode, Council, `/btw`, room/team conversations and delegated work
+record task identity, lifecycle, cancellation, recovery, model-call accounting
+and permission state through the same Juno runtime. This is an internal
+consistency change: it does not replace your providers or make the underlying
+models faster or smarter.
+
+Specific improvements:
+
+- **Shared task identity and lifecycle across Bot Mode and Code Mode.** A task
+  keeps one durable identity from admission to its terminal record.
+- **Council planner/reviewer call tracking.** Planner and reviewer calls are
+  durable task calls with their own model, usage and terminal state. The parent
+  task waits for the mandatory reviewer before it settles.
+- **`/btw` side-task identity and isolation.** The side task has its own
+  profile, parent relationship, transcript, budget and cancellation, while the
+  main task keeps running independently.
+- **Room/team conversations in the same task system.** A room turn creates one
+  room profile task; each participating member call is recorded under it with
+  actor, model and usage.
+- **More reliable cancellation and interrupted-task handling.** Cancellation
+  settles the task through the runtime instead of leaving a partial record. A
+  late provider completion cannot reopen a finished task.
+- **Durable usage and terminal records.** A task settles once, with one terminal
+  receipt. Duplicate completion events cannot double-charge a task. Usage that
+  arrives after settlement is recorded separately as late usage.
+- **Stronger Code Mode model-selection boundaries.** An exact Code model is
+  checked against the live worker catalogue before work starts, and Juno
+  verifies the model Boreal actually bound. A silent substitution or unreviewed
+  fallback stops the run.
+- **Continued Ariadne verification.** Ariadne remains independent: no executor
+  may mark its own claims verified, and Code review or Council verdicts remain
+  advisory evidence.
+- **Crash-notice behavior qualified.** A hard process kill does not fabricate a
+  notice or a reply. A recorded renderer error offers the reviewed crash-report
+  action once, and dismissal is durable.
+- **Existing app performance preserved.** The Juno-controlled durable task
+  overhead is unchanged at roughly 7 ms p50 in the qualification microbenchmark.
+- **Existing compact/full distribution options.** The compact installer remains
+  the default; the full/offline variant bundles the optional browser engine and
+  Whisper model.
+
+Boreal, Pi and OMP remain bounded execution components behind the Juno task
+system. Boreal still coordinates Code execution, OMP remains the Code worker
+runtime, and Pi remains a provider/agent executor. This release does not remove
+them.
+
+## Performance
+
+Qualified measurements from the final candidate on the same Windows 11 x64
+machine and tested provider route:
+
+| Measurement | Result |
+|---|---:|
+| Warm short reply, end to end | **2.29–2.92 s** |
+| Durable task overhead | **7.06 ms p50** |
+| Compact installer | **271.7 MB** (271,664,867 B) |
+| Full/offline installer | **488.6 MB** (488,550,122 B) |
+
+These are measurements, not guaranteed timings. Provider latency, network
+conditions and the selected model dominate reply time. The runtime change did
+not make the underlying models faster or smarter.
 
 ## Choose your download
 
 | Variant | File | Size | Installed | Use when |
 |---|---|---:|---:|---|
-| **Compact (recommended)** | `juno-0.4.0-setup.exe` | 271,652,163 B | about 1.05 GB | You have internet access and can install the browser/Whisper assets when needed. |
-| **Full/offline** | `juno-0.4.0-full-setup.exe` | 488,536,955 B | about 1.50 GB | You want the browser engine and Whisper model present on first launch. |
+| **Compact (recommended)** | `juno-0.4.1-setup.exe` | 271,664,867 B | about 1.05 GB | You have internet access and can install the browser/Whisper assets when needed. |
+| **Full/offline** | `juno-0.4.1-full-setup.exe` | 488,550,122 B | about 1.50 GB | You want the browser engine and Whisper model present on first launch. |
 
 The full variant includes offline-capable **runtime assets**. It is not an
 entirely offline AI assistant: external model providers still need an account,
@@ -60,22 +106,18 @@ Download the installer and `SHA256SUMS.txt` from the same release. In
 PowerShell:
 
 ```powershell
-Get-FileHash .\juno-0.4.0-setup.exe -Algorithm SHA256
+Get-FileHash .\juno-0.4.1-setup.exe -Algorithm SHA256
 Get-Content .\SHA256SUMS.txt
 ```
 
 Expected:
 
 ```text
-4AF07ECD32F8769524A7A72E027930E85CF793B46C23E1AB49C7305877BE2942  juno-0.4.0-setup.exe
-554CA46E69903E44DBAD1AECB273737522B6C89CD6DA0412FC0985F19319BBE8  juno-0.4.0-full-setup.exe
+3B6B3EF3EC870CA779E1A7B623A3D970D468729F0B9BF2608B171F2400233EBD  juno-0.4.1-setup.exe
+C64A3441209BECB10A569498C8FDF403C41592EE5779880B98B8576BAA8CD864  juno-0.4.1-full-setup.exe
 ```
 
 If the hash differs, do not install. Delete the file and download it again.
-
-`SHA256SUMS.txt` uses the standard GNU format (`<hash><two spaces><filename>`)
-with no extra fields, so on Linux, WSL or Git Bash you can also run
-`sha256sum --check SHA256SUMS.txt` with both installers in the same folder.
 
 The installer is **unsigned**. Windows may show **Unknown Publisher** or a
 SmartScreen warning. Continue only if the checksum matches. Do **not** disable
@@ -96,40 +138,49 @@ ask your administrator.
 See [INSTALL.md](INSTALL.md) for the full guide, including upgrade, rollback,
 optional runtime downloads and troubleshooting.
 
-## Upgrading from Beta 0.3
+## Upgrading from v0.4.0
 
-A direct manual upgrade from `1.0.0-rc.18` (Beta 0.3 Final) to `0.4.0` was
-tested with data preservation. The installer uses the same application identity
-(`com.agent.app`, product `Juno`, install directory
-`%LOCALAPPDATA%\Programs\juno`), so it upgrades in place.
+Installing v0.4.1 over v0.4.0 is an in-place upgrade. It uses the same
+application identity (`com.agent.app`, product `Juno`, install directory
+`%LOCALAPPDATA%\Programs\juno`), so bots, conversations, work items, memory,
+provider configuration and credentials stay in place.
 
-- Back up `%USERPROFILE%\.juno` and `%APPDATA%\Juno` first, and keep the
-  previous installer for rollback.
-- You do **not** need to install `1.0.0-rc.21` first for the manual path. The
-  signed automatic-update bridge is a separate, unqualified path and is not used
-  here.
-- The in-app installer verifier accepts `juno-0.4.0-setup.exe` as the approved
-  manual migration from the `1.0.0-rc` Beta 0.3 line.
+- Back up `%USERPROFILE%\.juno` and `%APPDATA%\Juno` first, and keep the v0.4.0
+  installer for rollback.
+- v0.4.0 remains available at
+  <https://github.com/tanishkfr/juno-beta/releases/tag/v0.4.0>.
+- A v0.4.0 rollback opens the newer work-item database through its documented
+  newer-schema tolerance and rewrites the schema-version metadata. The data
+  remains readable, and reinstalling v0.4.1 restores the newer schema. Back up
+  before rolling back.
 
 ## Known limitations
 
-- **Unsigned Windows executable.** No Authenticode certificate and no
-  SmartScreen publisher reputation. Windows may warn or, on managed systems,
-  block installation.
+- **Unsigned Windows executable.** No Authenticode publisher identity and no
+  SmartScreen reputation. Windows may warn or, on managed systems, block
+  installation.
 - **Manual updates.** Juno does not download or run installers. The signed
-  automatic-update bridge from the old `1.0.0-rc` line is not qualified and must
-  not be represented as working.
+  automatic-installer upgrade path is not qualified. The authenticated
+  announcement feed only reports that a newer release exists and opens the
+  release page.
 - **Provider accounts, subscriptions, quotas and network access are required**
   for external models. Bundled runtime assets do not remove that requirement.
+- **Spending controls are bounded.** A workspace-wide hard spending cap remains
+  unenforceable across some external provider routes, and Boreal internal worker
+  iterations are not all bounded by Juno's model-call ceiling.
+- **Speech acceptance is partial.** Installed speech components and local
+  Whisper transcription passed, but live microphone recording was not exercised
+  during final qualification.
+- **Browser close is model-dependent.** The tested model omitted a required
+  `tabId` on its initial browser-close call. Juno reported the error and the
+  session was subsequently released.
 - **Optional downloads in the compact build.** Browser automation needs the
-  pinned agent-browser plus Chrome for Testing (about 160 MB download, about
-  450 MB on disk). Local Whisper needs the 148 MB base.en model. System.Speech
-  works without the Whisper model.
-- **Screen-reader acceptance is partial.** Keyboard navigation, visible focus,
-  contrast, zoom, forced colours and reduced motion were checked. A real
-  NVDA/Narrator speech-output session was not completed.
-- **Council and model-driven browser/computer coverage are bounded.**
-- **No enforceable workspace-wide spending hard cap.**
+  pinned agent-browser plus Chrome for Testing. Local Whisper needs the 148 MB
+  base.en model. System.Speech works without the Whisper model.
+- **Qualification was not a clean-room VM.** The real installed full/offline
+  variant was tested on the owner's existing Windows environment. Computer
+  control used a packaged read-only runtime probe rather than a full
+  model-driven interaction.
 
 See [KNOWN_ISSUES.md](KNOWN_ISSUES.md) for the complete list.
 
@@ -141,7 +192,18 @@ See [KNOWN_ISSUES.md](KNOWN_ISSUES.md) for the complete list.
 - Installation and updates are **manual**. Juno may check Ed25519-signed
   release metadata and show release notes, but it never downloads or executes
   an installer.
+- The packaged `app-update.yml` points at the reserved host
+  `updates.invalid`; the signed feed is announcement-only.
 - See [SECURITY.md](SECURITY.md) for the full security note.
+
+## Previous release
+
+Juno v0.4.0 Beta — Intelligence & Efficiency remains available, with its
+original installers and checksums:
+
+<https://github.com/tanishkfr/juno-beta/releases/tag/v0.4.0>
+
+Historical notes: [RELEASE_NOTES_v0.4.0.md](RELEASE_NOTES_v0.4.0.md).
 
 ## Feedback
 
@@ -161,6 +223,6 @@ this project does not claim them.
 
 ---
 
-**Juno v0.4.0 Beta — Intelligence & Efficiency**  
+**Juno v0.4.1 Beta — Unified Agent Runtime**  
 Released: 2026-11-10  
 Windows x64 · Public Beta · Unsigned · Manual updates

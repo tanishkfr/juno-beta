@@ -1,7 +1,7 @@
-# Installing Juno v0.4.0 Beta
+# Installing Juno v0.4.1 Beta
 
-This guide covers the Windows x64 installers for **Juno v0.4.0 Beta —
-Intelligence & Efficiency**.
+This guide covers the Windows x64 installers for **Juno v0.4.1 Beta — Unified
+Agent Runtime**.
 
 ## Requirements
 
@@ -11,17 +11,17 @@ Intelligence & Efficiency**.
   model capacity, subscriptions or quota.
 - **Network access** for provider calls and for the optional browser/Whisper
   downloads in the compact build.
-- **Disk space:** about 1.1 GB for the compact application, or about 1.6 GB if
-  you install both optional assets later. The full/offline variant needs about
-  1.5 GB. Leave additional space for projects, generated files and backups.
+- **Disk space:** about 1.05 GB for the compact application, or about 1.50 GB
+  for the full/offline variant. Leave additional space for projects, generated
+  files and backups.
 - **No administrator rights required.** The installer is per-user.
 
 ## Choose a download
 
 | Variant | File | Size | Notes |
 |---|---|---:|---|
-| Compact (recommended) | `juno-0.4.0-setup.exe` | 271,652,163 B | Omits the browser engine and Whisper weights; installs them on request. |
-| Full/offline | `juno-0.4.0-full-setup.exe` | 488,536,955 B | Includes the pinned browser engine and Whisper base.en model. External providers still need the internet. |
+| Compact (recommended) | `juno-0.4.1-setup.exe` | 271,664,867 B | Omits the browser engine and Whisper weights; installs them on request. |
+| Full/offline | `juno-0.4.1-full-setup.exe` | 488,550,122 B | Includes the pinned browser engine and Whisper base.en model. External providers still need the internet. |
 
 Both variants contain the same application code. The full variant only adds the
 two large optional runtime assets.
@@ -30,51 +30,47 @@ two large optional runtime assets.
 
 Download the installer and `SHA256SUMS.txt` from the official release:
 
-<https://github.com/tanishkfr/juno-beta/releases/tag/v0.4.0>
+<https://github.com/tanishkfr/juno-beta/releases/tag/v0.4.1>
 
 In PowerShell, from the download folder:
 
 ```powershell
-Get-FileHash .\juno-0.4.0-setup.exe -Algorithm SHA256
+Get-FileHash .\juno-0.4.1-setup.exe -Algorithm SHA256
 Get-Content .\SHA256SUMS.txt
 ```
 
 For the full variant:
 
 ```powershell
-Get-FileHash .\juno-0.4.0-full-setup.exe -Algorithm SHA256
+Get-FileHash .\juno-0.4.1-full-setup.exe -Algorithm SHA256
 Get-Content .\SHA256SUMS.txt
 ```
 
 Expected SHA-256:
 
 ```text
-4af07ecd32f8769524a7a72e027930e85cf793b46c23e1ab49c7305877be2942  juno-0.4.0-setup.exe
-554ca46e69903e44dbad1aecb273737522b6c89cd6da0412fc0985f19319bbe8  juno-0.4.0-full-setup.exe
+3b6b3ef3ec870ca779e1a7b623a3d970d468729f0b9bf2608b171f2400233ebd  juno-0.4.1-setup.exe
+c64a3441209becb10a569498c8fdf403c41592ee5779880b98b8576baa8cd864  juno-0.4.1-full-setup.exe
 ```
 
 The hash is not case-sensitive. If it does not match, stop. Delete the file and
 download it again. Do not install a file whose provenance you cannot verify.
 
-`SHA256SUMS.txt` is a standard GNU checksum file: one
-`<64-character-lowercase-hash><two spaces><exact filename>` record per line,
-UTF-8 without a byte-order mark, LF line endings, and no extra fields. File
-sizes are recorded in `artifacts.json`. On Linux, WSL, macOS or Git Bash, put
-both installers and `SHA256SUMS.txt` in one folder and run:
+On Linux, WSL or Git Bash you can also validate the released checksum file:
 
 ```sh
 sha256sum --check SHA256SUMS.txt
 ```
 
-The v0.4.0 Git tag's automatically generated source archives are a historical
-snapshot of the repository at release time. The release asset and `main` carry
-the corrected checksum file; neither installer binary changed.
+Expected output is `OK` for each installer and exit code `0`.
 
 ## Unsigned installer
 
 The installer is **not code-signed**.
 
-- Windows may show **Unknown Publisher** or “Windows protected your PC”
+- Authenticode status: `NotSigned`.
+- There is no verified publisher identity and no SmartScreen reputation.
+- Windows may show **Unknown Publisher** or **Windows protected your PC**
   (SmartScreen).
 - If SmartScreen appears, choose **More info**, confirm the file name, then
   **Run anyway** — only after the SHA-256 matches.
@@ -86,7 +82,7 @@ The installer is **not code-signed**.
 - The checksum proves integrity, not publisher identity. There is no
   Authenticode signature for this Beta.
 
-## Install
+## New installation
 
 1. Close any running Juno window.
 2. Run the installer. The compact and full installers share the same
@@ -99,7 +95,7 @@ The installer is **not code-signed**.
 4. The installer does not launch Juno automatically.
 5. Open Juno from the Start menu or desktop shortcut.
 
-## First run
+## First run and connecting providers
 
 1. Complete onboarding: display name, starting companion, optional provider
    connection, appearance and privacy.
@@ -113,7 +109,11 @@ The installer is **not code-signed**.
 6. Optional: install the browser engine or the local Whisper model from the
    relevant settings surface. Neither downloads during ordinary startup.
 
-## Optional runtime downloads
+Provider accounts, subscriptions, quotas and network access are independent of
+Juno. A provider may retire, rename or restrict a model; an explicit stale pin
+is refused rather than silently replaced.
+
+## Optional browser and Whisper assets
 
 ### Browser automation
 
@@ -138,15 +138,10 @@ The compact installer includes the Whisper engine but not the weights.
 - **System.Speech works immediately** and remains the fallback. You do not need
   the Whisper model to use speech output.
 
-## Upgrade from Juno Beta 0.3
+## Upgrade from v0.4.0
 
-The public Beta 0.3 line used versions `1.0.0-rc.17` to `1.0.0-rc.21`. Version
-`0.4.0` restarts the public version number.
-
-### Supported manual path
-
-A direct manual upgrade from `1.0.0-rc.18` to `0.4.0` was tested with data
-preservation. The installer uses the same identity as Beta 0.3:
+Installing v0.4.1 over v0.4.0 is an in-place upgrade. The installer uses the
+same identity as v0.4.0:
 
 - appId `com.agent.app`;
 - product name `Juno`;
@@ -162,32 +157,33 @@ The installer upgrades in place. It does not create a second copy.
 2. Back up:
    - `%USERPROFILE%\.juno` (conversations, bots, memory, routines, work items);
    - `%APPDATA%\Juno` (credentials, window state, local settings);
-   - the previous installer (`juno-1.0.0-rc.18-setup.exe` or
-     `juno-1.0.0-rc.21-setup.exe`) for rollback.
+   - the v0.4.0 installer for rollback.
 3. Keep the backup until the new version has opened, shown your bots and
    conversations, and completed a short provider turn.
 
 ### What is preserved
 
-The tested upgrade preserved:
+The production upgrade test preserved:
 
-- bots and conversations;
-- work items and research records;
+- 17 existing bots;
+- existing configuration;
+- 25 work items;
+- conversation and user data across install, uninstall and reinstall;
 - provider configuration and credentials;
-- settings and memory;
-- SQLite integrity (`PRAGMA integrity_check = ok` for the tested databases).
+- memory, routines and settings.
 
-### What is not supported
+The v0.4.1 task-runtime tables are additive. Existing v0.4.0 data opens without
+a destructive migration.
 
-- The **signed automatic-update bridge** from `1.0.0-rc` to `0.4.0` is not
-  qualified. Do not wait for an in-app automatic update. Download and run the
-  installer manually.
-- A downgrade from `0.4.0` back to Beta 0.3 is possible by running the old
-  installer, but data written by `0.4.0` may not be understood by the older
-  build. Back up first.
-- In-app “Verify downloaded installer” accepts the 0.4.0 installer and the
-  historical `1.0.0-rc` line. It still refuses arbitrary downgrades and
-  cross-channel files.
+## Where your data lives
+
+- Data root: `%USERPROFILE%\.juno`
+- Desktop profile: `%APPDATA%\Juno`
+- Credentials: `%APPDATA%\Juno\credentials.bin` (OS-protected)
+
+The installer does not delete bots, conversations, work items, approvals,
+memory, routines, usage or credentials. A clean backup is still recommended
+before any upgrade.
 
 ## Uninstall and data preservation
 
@@ -206,16 +202,39 @@ The tested upgrade preserved:
 To remove all local data, uninstall Juno and then delete those two folders
 manually. Export anything you need first.
 
-## Rollback
+## Rollback to v0.4.0
 
-Reinstall the previous Beta 0.3 installer (`1.0.0-rc.18` or `1.0.0-rc.21`)
-over `0.4.0`. Because the identity and install directory are unchanged, this is
-an in-place replacement. Keep a backup of `%USERPROFILE%\.juno` and
-`%APPDATA%\Juno` in case the older build cannot read newer data.
+Back up first. Rollback is supported to v0.4.0 for this release, but unrestricted
+compatibility with future schema versions is not promised.
+
+1. Close Juno and confirm no Juno process is running.
+2. Copy `%USERPROFILE%\.juno` and `%APPDATA%\Juno` to a safe location.
+3. Keep the v0.4.0 installer and checksum from the preserved v0.4.0 release:
+   <https://github.com/tanishkfr/juno-beta/releases/tag/v0.4.0>
+4. Install the v0.4.0 installer over v0.4.1.
+5. Launch Juno and verify your bots and conversations.
+
+A v0.4.0 build opens the newer work-item database with its documented
+newer-schema tolerance. It ignores the v0.4.1 runtime/call/event tables and
+rewrites the schema-version metadata to 5. All tables and rows remain;
+reinstalling v0.4.1 restores schema 7. This is a metadata downgrade, not data
+loss. Restore the backup only if the rollback install did not preserve your
+data.
+
+## Updates
+
+Updates are manual in this Beta. Juno does not download or run installers
+automatically.
+
+- The packaged `app-update.yml` points at the reserved host
+  `updates.invalid`, so there is no live automatic-install feed.
+- Juno may check Ed25519-signed release metadata and show release notes.
+- The feed is announcement-only. It never downloads or executes an installer.
+- The signed automatic-installer upgrade path is not qualified.
 
 ## Troubleshooting
 
-**“Windows protected your PC”**
+**Windows protected your PC**
 : Verify the SHA-256 first. Choose **More info > Run anyway** only if it
 matches. Do not disable security controls.
 

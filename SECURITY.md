@@ -1,4 +1,4 @@
-# Security and integrity — Juno v0.4.0 Beta
+# Security and integrity — Juno v0.4.1 Beta
 
 ## Signing status
 
@@ -15,21 +15,21 @@ the installer as signed, trusted by SmartScreen, or publisher-verified.
 
 | Variant | File | Bytes | SHA-256 |
 |---|---|---:|---|
-| Compact (recommended) | `juno-0.4.0-setup.exe` | 271,652,163 | `4AF07ECD32F8769524A7A72E027930E85CF793B46C23E1AB49C7305877BE2942` |
-| Full/offline | `juno-0.4.0-full-setup.exe` | 488,536,955 | `554CA46E69903E44DBAD1AECB273737522B6C89CD6DA0412FC0985F19319BBE8` |
+| Compact (recommended) | `juno-0.4.1-setup.exe` | 271,664,867 | `3B6B3EF3EC870CA779E1A7B623A3D970D468729F0B9BF2608B171F2400233EBD` |
+| Full/offline | `juno-0.4.1-full-setup.exe` | 488,550,122 | `C64A3441209BECB10A569498C8FDF403C41592EE5779880B98B8576BAA8CD864` |
 
 Verify:
 
 ```powershell
-Get-FileHash .\juno-0.4.0-setup.exe -Algorithm SHA256
-Get-FileHash .\juno-0.4.0-full-setup.exe -Algorithm SHA256
+Get-FileHash .\juno-0.4.1-setup.exe -Algorithm SHA256
+Get-FileHash .\juno-0.4.1-full-setup.exe -Algorithm SHA256
 ```
 
 Download only from:
 
 <https://github.com/tanishkfr/juno-beta/releases>
 
-Do not use third-party mirrors, repacks or “fixed” installers.
+Do not use third-party mirrors, repacks or "fixed" installers.
 
 ## What the checksum proves
 
@@ -55,13 +55,15 @@ publisher; neither is a substitute for Authenticode.
 - Juno may check an Ed25519-signed release metadata feed and show the released
   version and notes. Metadata is verified with a public key pinned in the build.
 - Juno **never downloads or executes an installer** from that feed.
-  `electron-updater` is not pointed at a live automatic-install feed;
-  the packaged `app-update.yml` uses the reserved host `updates.invalid`.
+  `electron-updater` is not pointed at a live automatic-install feed; the
+  packaged `app-update.yml` uses the reserved host `updates.invalid`.
+- In manual mode the updater announces an available release and opens the
+  release page. It does not fetch the installer.
 - The in-app **Verify downloaded installer** action hashes a file you selected
   and compares it with a checksum file you selected. It refuses a malformed
   file, a checksum mismatch, an unknown channel and an unapproved downgrade.
-- The signed automatic-update bridge from the old `1.0.0-rc` line to `0.4.0`
-  is **not qualified** and must not be represented as working.
+- The signed automatic-installer upgrade path is **not qualified** and must not
+  be represented as working. The announcement feed is not an automatic updater.
 
 ## Runtime and data handling
 

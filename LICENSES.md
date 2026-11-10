@@ -1,6 +1,6 @@
 # Licenses
 
-Juno v0.4.0 Beta is distributed under the **Apache License 2.0**. The full text is in
+Juno v0.4.1 Beta is distributed under the **Apache License 2.0**. The full text is in
 [LICENSE](LICENSE), and the preserved upstream attribution is in [NOTICE](NOTICE).
 
 ## Provenance

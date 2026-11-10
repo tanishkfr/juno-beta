@@ -1,6 +1,6 @@
 ﻿# Privacy
 
-This page describes the data handling of **Juno v0.4.0 Beta**, version `0.4.0`. It is a plain description of the Beta implementation, not a legal privacy policy and not a substitute for your AI provider's terms.
+This page describes the data handling of **Juno v0.4.1 Beta**, version `0.4.1`. It is a plain description of the Beta implementation, not a legal privacy policy and not a substitute for your AI provider's terms.
 
 Juno is local-first, but it is not offline. It makes network requests when you use a provider, a browser tool, research, or the update check.
 
@@ -15,7 +15,7 @@ Juno stores its own data in two local folders:
 
 These folders can contain private conversations, prompts, results and file paths. Treat them as private data.
 
-The local server listens on loopback only. Juno v0.4.0 does not expose a public inbound port by default. Remote phone, Tailscale and mobile companion flows are deferred for this Beta.
+The local server listens on loopback only. Juno v0.4.1 does not expose a public inbound port by default. Remote phone, Tailscale and mobile companion flows are deferred for this Beta.
 
 ## What leaves your computer
 
@@ -65,7 +65,7 @@ A copied Juno profile is only usable by the same Windows user and machine creden
 
 ## What Juno does not collect
 
-Juno v0.4.0 has no product telemetry, no analytics endpoint, no advertising identifier and no automatic crash upload. It does not create a Juno account or require a cloud sign-in.
+Juno v0.4.1 has no product telemetry, no analytics endpoint, no advertising identifier and no automatic crash upload. It does not create a Juno account or require a cloud sign-in.
 
 This does not cover data collected by the providers and websites you choose to use.
 

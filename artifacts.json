@@ -1,13 +1,23 @@
 {
   "schema": "juno-release-artifacts-1",
   "product": "Juno",
-  "version": "0.4.0",
-  "releaseTitle": "Juno v0.4.0 Beta — Intelligence & Efficiency",
+  "version": "0.4.1",
+  "buildCandidate": "v041-final1",
+  "releaseTitle": "Juno v0.4.1 Beta — Unified Agent Runtime",
   "releaseType": "public-beta",
+  "channel": "beta",
   "platform": "win32-x64",
-  "minimumWindows": "Windows 11 x64",
+  "supportedWindows": "Windows 11 x64",
   "releaseDate": "2026-11-10",
-  "sourceCommit": "3ba7969549a5da6942d7a2395c9acecfb5e607aa",
+  "sourceCommit": "f95187f12fd6b4c3466e3a345734c59aeb36fb06",
+  "sourceAvailability": "Private application source is not part of this distribution repository. Only public release documentation and metadata are published here.",
+  "artifactProvenance": {
+    "qualifiedCandidate": "v041-final1",
+    "qualifiedCompactArtifact": "release/juno-0.4.1-final1-setup.exe",
+    "qualifiedFullArtifact": "release-full/juno-0.4.1-final1-full-setup.exe",
+    "publicationMethod": "Byte-identical copies of the qualified binaries, renamed to the public file names without modifying their contents.",
+    "verification": "Source and renamed copies were hashed before publication; the embedded application archive in both installers is byte-identical to the qualified build tree."
+  },
   "buildIdentity": "Juno",
   "appId": "com.agent.app",
   "signing": {
@@ -18,22 +28,25 @@
   "updates": {
     "mode": "manual",
     "electronUpdater": "inert (app-update.yml uses updates.invalid)",
-    "signedMetadata": "Ed25519-signed announcement feed; never downloads or runs an installer",
-    "signedAutomaticUpdateBridge": "not qualified"
+    "announcementFeed": "https://tanishkfr.github.io/juno-update-feed/latest.juno.json",
+    "signedMetadata": "Ed25519-signed announcement only; never downloads or executes an installer",
+    "signedAutomaticInstallerUpgrade": "not qualified"
   },
   "artifacts": [
     {
       "variant": "compact",
-      "fileName": "juno-0.4.0-setup.exe",
-      "bytes": 271652163,
-      "sha256": "4af07ecd32f8769524a7a72e027930e85cf793b46c23e1ab49c7305877be2942",
+      "fileName": "juno-0.4.1-setup.exe",
+      "bytes": 271664867,
+      "sha256": "3b6b3ef3ec870ca779e1a7b623a3d970d468729f0b9bf2608b171f2400233ebd",
       "default": true,
-      "installedBytes": 1054139148,
+      "installedBytes": 1054080371,
+      "provenance": "Byte-identical copy of the qualified v041-final1 compact installer.",
       "includes": [
         "Bot Mode",
-        "Code Mode and Boreal",
+        "Code Mode and Boreal/OMP",
         "Council",
         "/btw",
+        "room/team execution",
         "model/provider integrations",
         "Windows computer control",
         "skills and tools",
@@ -49,29 +62,78 @@
     },
     {
       "variant": "full-offline",
-      "fileName": "juno-0.4.0-full-setup.exe",
-      "bytes": 488536955,
-      "sha256": "554ca46e69903e44dbad1aecb273737522b6c89cd6da0412fc0985f19319bbe8",
+      "fileName": "juno-0.4.1-full-setup.exe",
+      "bytes": 488550122,
+      "sha256": "c64a3441209becb10a569498c8fdf403c41592ee5779880b98b8576baa8cd864",
       "default": false,
-      "installedBytes": 1499712743,
+      "installedBytes": 1499653945,
+      "provenance": "Byte-identical copy of the qualified v041-final1 full/offline installer.",
       "includes": [
         "the compact application",
-        "bundled pinned browser engine",
-        "Whisper base.en model"
+        "bundled pinned browser engine (agent-browser 0.36.0-omb.1 + Chrome for Testing 153.0.8010.47)",
+        "Whisper base.en model (147964211 bytes, SHA-256 a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002)",
+        "Boreal coordinator source build (10186208 bytes, SHA-256 8d45b588355c16c502d854f99e78d633be43e6cdc6e7219378e1d92c26c60ab7)"
       ],
       "notes": "Offline-capable runtime assets. External model providers still need internet access, an account and quota."
     }
   ],
-  "verification": {
-    "installerExit": "0",
-    "compactInstallSeconds": 52.21,
-    "fullInstallSeconds": 38.4,
+  "optionalRuntimeAssets": [
+    {
+      "name": "browser-engine",
+      "components": "agent-browser 0.36.0-omb.1 and Chrome for Testing 153.0.8010.47",
+      "bundledIn": "full-offline",
+      "compactDelivery": "optional verified download requested by the user"
+    },
+    {
+      "name": "whisper-base-en",
+      "fileName": "ggml-base.en.bin",
+      "bytes": 147964211,
+      "sha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
+      "bundledIn": "full-offline",
+      "compactDelivery": "optional verified download requested by the user"
+    }
+  ],
+  "qualification": {
+    "applicationIdentity": "Juno",
+    "applicationId": "com.agent.app",
+    "applicationVersion": "0.4.1",
+    "installedFileVersion": "0.4.1",
+    "testIdentityExcludedFromPublication": true,
+    "embeddedAppAsarSha256": "ac3cdfda8af804ae685aabf117fa12a37e6336e6ef550bb27ec2de38748a2cbf",
+    "embeddedAppAsarMatchesQualifiedBuild": true,
+    "variantsNotSwapped": "Compact omits the browser engine and Whisper weights; full includes both. The embedded application archive is identical in both.",
+    "compactInstalled": true,
+    "fullInstalled": true,
+    "productionUpgradeFrom": "0.4.0",
+    "productionBotsBeforeAfter": 17,
+    "productionWorkItemsPreserved": 25,
+    "rollbackTo": "0.4.0",
+    "rollbackSchemaMetadata": 5,
+    "reupgrade": "0.4.1",
+    "reupgradeSchema": 7,
     "uninstallPreservesUserData": true,
-    "reinstallDetectsOptionalAssets": true,
-    "upgradeFrom": "1.0.0-rc.18",
-    "upgradePreservesData": true,
-    "rollbackTo": "1.0.0-rc.18",
-    "rollbackRestoresBinary": true,
-    "sqliteIntegrity": "ok"
+    "reinstallPreservesUserData": true,
+    "liveBotMode": "PASS",
+    "liveCodeMode": "PASS",
+    "liveCouncil": "PASS",
+    "liveBtw": "PASS",
+    "liveRoom": "PASS",
+    "installedBrowser": "PASS with disclosed model close-argument limitation",
+    "installedSpeech": "PARTIAL: engine, devices, recognizers, bundled model and synthetic-WAV transcription passed; live microphone recording was not exercised",
+    "installedComputer": "PASS as a packaged read-only runtime probe",
+    "crashNotice": "PASS",
+    "cleanRoomVm": false,
+    "environment": "Owner's existing Windows 11 x64 environment with verified backups"
+  },
+  "verification": {
+    "typecheck": "PASS",
+    "build": "PASS",
+    "electron": "896 passed, 0 failed, 11 skipped",
+    "packagedServer": "PASS",
+    "fastLane": "9903 passed, 6 baseline/environment failures, 109 skipped",
+    "security": "52/52 passed",
+    "installerSignature": "NotSigned",
+    "publishedChecksumFormat": "GNU sha256sum: UTF-8 without BOM, LF, two records, no byte-count suffix",
+    "publicationState": "Public beta GitHub prerelease v0.4.1"
   }
 }
