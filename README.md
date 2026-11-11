@@ -8,6 +8,11 @@ This repository is the public download and feedback channel for
 
 Windows 11 x64 · Public Beta · Unsigned installer · Manual updates
 
+> **Version note:** the public beta is titled **v0.4.2**. The installed
+> application reports its internal build version as **`0.4.2-rc.3`**. The
+> signed update feed uses `0.4.2-rc.3` so the published build recognizes itself
+> as up to date. This is not a stable `0.4.2` binary.
+
 ## What is in Juno
 
 - **Bot Mode** — conversations with the providers you connect, streaming

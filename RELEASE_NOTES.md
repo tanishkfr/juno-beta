@@ -2,6 +2,11 @@
 
 **Public Beta · Windows 11 x64 · Version 0.4.2 · Unsigned installer · Manual updates**
 
+> **Version note:** the public beta is titled v0.4.2; the installed application
+> reports its internal build version as `0.4.2-rc.3`. The signed update feed
+> uses `0.4.2-rc.3` so the published build recognizes itself as up to date.
+> This is not a stable `0.4.2` binary.
+
 Juno v0.4.2 is a performance and polish release. It keeps the provider routes,
 Code execution boundary, Council policy, Ariadne verification and exact model
 pins from v0.4.1. It is not a frontend rewrite and it does not remove Boreal,
