@@ -1,22 +1,22 @@
 {
   "schema": "juno-release-artifacts-1",
   "product": "Juno",
-  "version": "0.4.1",
-  "buildCandidate": "v041-final1",
-  "releaseTitle": "Juno v0.4.1 Beta — Unified Agent Runtime",
+  "version": "0.4.2",
+  "buildCandidate": "0.4.2-rc.3",
+  "releaseTitle": "Juno v0.4.2 Beta — Performance & Polish",
   "releaseType": "public-beta",
   "channel": "beta",
   "platform": "win32-x64",
   "supportedWindows": "Windows 11 x64",
-  "releaseDate": "2026-11-10",
-  "sourceCommit": "f95187f12fd6b4c3466e3a345734c59aeb36fb06",
+  "releaseDate": "2026-11-11",
+  "sourceCommit": "c0b7ec4d6e9bb682bbb96b2dcb77884c6f7abb5f",
   "sourceAvailability": "Private application source is not part of this distribution repository. Only public release documentation and metadata are published here.",
   "artifactProvenance": {
-    "qualifiedCandidate": "v041-final1",
-    "qualifiedCompactArtifact": "release/juno-0.4.1-final1-setup.exe",
-    "qualifiedFullArtifact": "release-full/juno-0.4.1-final1-full-setup.exe",
+    "qualifiedCandidate": "0.4.2-rc.3",
+    "qualifiedCompactArtifact": "release-rc3/juno-0.4.2-rc.3-setup.exe",
+    "qualifiedFullArtifact": "release-rc3/juno-0.4.2-rc.3-full-setup.exe",
     "publicationMethod": "Byte-identical copies of the qualified binaries, renamed to the public file names without modifying their contents.",
-    "verification": "Source and renamed copies were hashed before publication; the embedded application archive in both installers is byte-identical to the qualified build tree."
+    "verification": "Source and renamed copies were hashed before publication; both installers embed sourceCommit c0b7ec4d6e9bb682bbb96b2dcb77884c6f7abb5f and production appId com.agent.app."
   },
   "buildIdentity": "Juno",
   "appId": "com.agent.app",
@@ -35,12 +35,11 @@
   "artifacts": [
     {
       "variant": "compact",
-      "fileName": "juno-0.4.1-setup.exe",
-      "bytes": 271664867,
-      "sha256": "3b6b3ef3ec870ca779e1a7b623a3d970d468729f0b9bf2608b171f2400233ebd",
+      "fileName": "juno-0.4.2-setup.exe",
+      "bytes": 252282304,
+      "sha256": "4ab457a97c0fb768768720adcc7c9af4bc5899fef5d2d070d15176c51aa5522b",
       "default": true,
-      "installedBytes": 1054080371,
-      "provenance": "Byte-identical copy of the qualified v041-final1 compact installer.",
+      "provenance": "Byte-identical copy of the qualified 0.4.2-rc.3 production compact installer.",
       "includes": [
         "Bot Mode",
         "Code Mode and Boreal/OMP",
@@ -53,86 +52,46 @@
         "memory, routines and persistence",
         "Windows speech fallback",
         "optional browser installer",
-        "optional Whisper model installer"
+        "optional Whisper model installer",
+        "optional Android tools installer",
+        "optional cloudflared installer"
       ],
       "omits": [
         "bundled browser engine",
-        "Whisper base.en weights"
+        "Whisper base.en weights",
+        "Android platform tools",
+        "cloudflared"
       ]
     },
     {
       "variant": "full-offline",
-      "fileName": "juno-0.4.1-full-setup.exe",
-      "bytes": 488550122,
-      "sha256": "c64a3441209becb10a569498c8fdf403c41592ee5779880b98b8576baa8cd864",
+      "fileName": "juno-0.4.2-full-setup.exe",
+      "bytes": 488599330,
+      "sha256": "8f73fe74e983ac217bfc15f4c71b34b3a72dac2072617a2ac497a328c126f278",
       "default": false,
-      "installedBytes": 1499653945,
-      "provenance": "Byte-identical copy of the qualified v041-final1 full/offline installer.",
+      "provenance": "Byte-identical copy of the qualified 0.4.2-rc.3 production full/offline installer.",
       "includes": [
         "the compact application",
-        "bundled pinned browser engine (agent-browser 0.36.0-omb.1 + Chrome for Testing 153.0.8010.47)",
-        "Whisper base.en model (147964211 bytes, SHA-256 a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002)",
-        "Boreal coordinator source build (10186208 bytes, SHA-256 8d45b588355c16c502d854f99e78d633be43e6cdc6e7219378e1d92c26c60ab7)"
+        "bundled pinned browser engine",
+        "Whisper base.en model",
+        "Android platform tools",
+        "cloudflared"
       ],
       "notes": "Offline-capable runtime assets. External model providers still need internet access, an account and quota."
     }
   ],
-  "optionalRuntimeAssets": [
-    {
-      "name": "browser-engine",
-      "components": "agent-browser 0.36.0-omb.1 and Chrome for Testing 153.0.8010.47",
-      "bundledIn": "full-offline",
-      "compactDelivery": "optional verified download requested by the user"
-    },
-    {
-      "name": "whisper-base-en",
-      "fileName": "ggml-base.en.bin",
-      "bytes": 147964211,
-      "sha256": "a03779c86df3323075f5e796cb2ce5029f00ec8869eee3fdfb897afe36c6d002",
-      "bundledIn": "full-offline",
-      "compactDelivery": "optional verified download requested by the user"
-    }
-  ],
-  "qualification": {
-    "applicationIdentity": "Juno",
-    "applicationId": "com.agent.app",
-    "applicationVersion": "0.4.1",
-    "installedFileVersion": "0.4.1",
-    "testIdentityExcludedFromPublication": true,
-    "embeddedAppAsarSha256": "ac3cdfda8af804ae685aabf117fa12a37e6336e6ef550bb27ec2de38748a2cbf",
-    "embeddedAppAsarMatchesQualifiedBuild": true,
-    "variantsNotSwapped": "Compact omits the browser engine and Whisper weights; full includes both. The embedded application archive is identical in both.",
-    "compactInstalled": true,
-    "fullInstalled": true,
-    "productionUpgradeFrom": "0.4.0",
-    "productionDataPreserved": true,
-    "rollbackTo": "0.4.0",
-    "rollbackSchemaMetadata": 5,
-    "reupgrade": "0.4.1",
-    "reupgradeSchema": 7,
-    "uninstallPreservesUserData": true,
-    "reinstallPreservesUserData": true,
-    "liveBotMode": "PASS",
-    "liveCodeMode": "PASS",
-    "liveCouncil": "PASS",
-    "liveBtw": "PASS",
-    "liveRoom": "PASS",
-    "installedBrowser": "PASS with disclosed model close-argument limitation",
-    "installedSpeech": "PARTIAL: engine, devices, recognizers, bundled model and synthetic-WAV transcription passed; live microphone recording was not exercised",
-    "installedComputer": "PASS as a packaged read-only runtime probe",
-    "crashNotice": "PASS",
-    "cleanRoomVm": false,
-    "environment": "Owner's existing Windows 11 x64 environment with verified backups"
-  },
   "verification": {
-    "typecheck": "PASS",
-    "build": "PASS",
-    "electron": "896 passed, 0 failed, 11 skipped",
-    "packagedServer": "PASS",
-    "fastLane": "9903 passed, 6 baseline/environment failures, 109 skipped",
-    "security": "52/52 passed",
-    "installerSignature": "NotSigned",
-    "publishedChecksumFormat": "GNU sha256sum: UTF-8 without BOM, LF, two records, no byte-count suffix",
-    "publicationState": "Public beta GitHub prerelease v0.4.1"
+    "realCodeModeEditAndApply": true,
+    "realCouncilPlannerExecutorReviewer": true,
+    "browserOpenReadClose": true,
+    "botBtwRoom": true,
+    "productionUpgradeRollbackReupgrade": true,
+    "productionDataPreserved": true,
+    "installerIsolation": true,
+    "electronTests": "914 passed, 0 failed, 11 skipped (925 total)",
+    "securityTests": "52/52",
+    "buildIdentityTests": "13/13",
+    "focusedCouncilBrowserComputer": "87/87",
+    "fullInstallerSmoke": "Isolated test-identity full/offline install from the same qualified source; production full installer identity-verified."
   }
 }

@@ -1,4 +1,4 @@
-# Security and integrity — Juno v0.4.1 Beta
+# Security and integrity — Juno v0.4.2 Beta
 
 ## Signing status
 
@@ -15,21 +15,21 @@ the installer as signed, trusted by SmartScreen, or publisher-verified.
 
 | Variant | File | Bytes | SHA-256 |
 |---|---|---:|---|
-| Compact (recommended) | `juno-0.4.1-setup.exe` | 271,664,867 | `3B6B3EF3EC870CA779E1A7B623A3D970D468729F0B9BF2608B171F2400233EBD` |
-| Full/offline | `juno-0.4.1-full-setup.exe` | 488,550,122 | `C64A3441209BECB10A569498C8FDF403C41592EE5779880B98B8576BAA8CD864` |
+| Compact (recommended) | `juno-0.4.2-setup.exe` | 252,282,304 | `4AB457A97C0FB768768720ADCC7C9AF4BC5899FEF5D2D070D15176C51AA5522B` |
+| Full/offline | `juno-0.4.2-full-setup.exe` | 488,599,330 | `8F73FE74E983AC217BFC15F4C71B34B3A72DAC2072617A2AC497A328C126F278` |
 
 Verify:
 
 ```powershell
-Get-FileHash .\juno-0.4.1-setup.exe -Algorithm SHA256
-Get-FileHash .\juno-0.4.1-full-setup.exe -Algorithm SHA256
+Get-FileHash .\juno-0.4.2-setup.exe -Algorithm SHA256
+Get-FileHash .\juno-0.4.2-full-setup.exe -Algorithm SHA256
 ```
 
 Download only from:
 
 <https://github.com/tanishkfr/juno-beta/releases>
 
-Do not use third-party mirrors, repacks or "fixed" installers.
+Do not use third-party mirrors, repacks or “fixed” installers.
 
 ## What the checksum proves
 
@@ -72,10 +72,13 @@ publisher; neither is a substitute for Authenticode.
 - Provider credentials are stored through the Windows credential store and are
   write-only through the product UI.
 - Optional browser and Whisper downloads are pinned by size and SHA-256 and are
-  verified before use.
+  verified before use. Android tools and cloudflared use the same pinned
+  download contract.
 - No API keys, OAuth tokens, private developer paths or `.env` files are
   packaged. The packaged tree was scanned for token shapes, private-key
   markers, development paths and test endpoints.
+- The public distribution repository contains only release documentation and
+  metadata. The application source remains private.
 - Third-party licence and notice files are shipped in `resources/licenses/`,
   including the Apache-2.0 product licence, `NOTICE`,
   `THIRD-PARTY-NOTICES.md`, Electron/Chromium notices, and the licences for the
@@ -84,7 +87,7 @@ publisher; neither is a substitute for Authenticode.
 ## Reporting a vulnerability
 
 Do not open a public issue with exploit details. Contact the maintainer through
-the repository's private security reporting channel, or use the feedback route
+the repository’s private security reporting channel, or use the feedback route
 in **Settings > Help & feedback** and mark the report as security-sensitive.
 Include the Juno version, Windows version, reproduction steps and impact.
 Never include live credentials, tokens or private user data in a report.
