@@ -30,7 +30,9 @@
     "electronUpdater": "inert (app-update.yml uses updates.invalid)",
     "announcementFeed": "https://tanishkfr.github.io/juno-update-feed/latest.juno.json",
     "signedMetadata": "Ed25519-signed announcement only; never downloads or executes an installer",
-    "signedAutomaticInstallerUpgrade": "not qualified"
+    "signedAutomaticInstallerUpgrade": "not qualified",
+    "announcedVersion": "0.4.2-rc.3",
+    "versionNote": "The public beta is titled v0.4.2; the installed application and signed announcement feed use the internal build version 0.4.2-rc.3 so the published build recognizes itself as up to date."
   },
   "artifacts": [
     {
@@ -93,5 +95,6 @@
     "buildIdentityTests": "13/13",
     "focusedCouncilBrowserComputer": "87/87",
     "fullInstallerSmoke": "Isolated test-identity full/offline install from the same qualified source; production full installer identity-verified."
-  }
+  },
+  "internalVersion": "0.4.2-rc.3"
 }
