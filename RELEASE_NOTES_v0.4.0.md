@@ -1,5 +1,9 @@
 # Juno v0.4.0 Beta — Intelligence & Efficiency
 
+> **Historical release note.** This documents Juno v0.4.0 and is kept for
+> reference; it is not the current release. The newest published beta is always the
+> first entry on the [releases page](https://github.com/tanishkfr/juno-beta/releases).
+
 **Public Beta · Windows x64 · Version 0.4.0 · Unsigned installer · Manual updates**
 
 Juno is a local-first Windows desktop workspace for a personal AI agent and

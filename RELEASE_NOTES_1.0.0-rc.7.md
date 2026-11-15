@@ -1,5 +1,9 @@
 # Juno Beta 0.1 — Release Notes
 
+> **Historical release note.** This documents Juno Juno Beta 0.1 (`1.0.0-rc.7`) and is kept for
+> reference; it is not the current release. The newest published beta is always the
+> first entry on the [releases page](https://github.com/tanishkfr/juno-beta/releases).
+
 **Version:** `1.0.0-rc.7` · **Product label:** Juno Beta 0.1 · **Date:** 2026-10-22
 **Platform:** Windows 11 x64 · **Installer:** `juno-1.0.0-rc.7-setup.exe`
 
