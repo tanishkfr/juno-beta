@@ -6,14 +6,14 @@ body:
   - type: markdown
     attributes:
       value: |
-        Juno v0.4.2 Beta is a bounded public Beta. Feature requests are welcome, but they may be
+        Juno v0.5 Beta is a bounded public Beta. Feature requests are welcome, but they may be
         deferred until after Beta stabilization. Please describe the user problem, not only the UI
         you want.
   - type: input
     id: version
     attributes:
       label: Juno version
-      placeholder: "Juno v0.4.2 Beta (0.4.2)"
+      placeholder: "Juno v0.5 Beta · 0.5.0-rc.1"
     validations:
       required: true
   - type: textarea
@@ -37,7 +37,6 @@ body:
       options:
         - Agent
         - Code
-        - Missions
         - Library / artifacts
         - Voice
         - Settings
@@ -54,3 +53,4 @@ body:
       options:
         - label: I did not include API keys, tokens, cookies or personal information.
           required: true
+

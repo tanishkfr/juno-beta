@@ -1,0 +1,154 @@
+{
+  "schemaVersion": 1,
+  "releaseTag": "v0.5.0-rc.1",
+  "issues": [
+    {
+      "id": "conversation-load-unavailable",
+      "title": "A carried-over conversation can fail to load",
+      "description": "On a profile upgraded from an earlier beta — especially one restored from a backup — a companion can remember a conversation that is no longer attached to it. Juno then shows “Your workspace is unavailable. Check the server connection in Advanced settings, then retry.” and that transcript does not load. The conversation is still stored in your profile; it is not deleted.",
+      "affectedVersions": ["0.5.0-rc.1"],
+      "status": "open",
+      "severity": "medium"
+    },
+    {
+      "id": "windows-11-x64-only",
+      "title": "Windows 11 x64 is the only qualified platform",
+      "description": "Windows 10, Windows on ARM64, 32-bit Windows, macOS and Linux are not qualified for this beta. Juno may start on an unqualified system, but installer behaviour, runtime assets and permissions are only verified on Windows 11 x64.",
+      "affectedVersions": ["0.5.0-rc.1"],
+      "status": "limitation"
+    },
+    {
+      "id": "unsigned-installer",
+      "title": "The Windows beta installer is unsigned",
+      "description": "Windows may show Unknown Publisher or SmartScreen. The beta has no Authenticode publisher trust and no SmartScreen reputation, so the checksum proves integrity, not who built the file.",
+      "affectedVersions": ["0.5.0-rc.1"],
+      "status": "limitation",
+      "workaround": "Verify the official release page and its published SHA-256 before opening the installer. Do not disable Windows security protections."
+    },
+    {
+      "id": "manual-updates",
+      "title": "Updates are installed manually",
+      "description": "Automatic installer download and installation are not enabled for this beta. Juno can announce a newer signed release and open its download page, but it never downloads or runs an installer for you.",
+      "affectedVersions": ["0.5.0-rc.1"],
+      "status": "limitation",
+      "workaround": "Read the published release notes, back up your workspace, and install the official release manually after verifying its SHA-256."
+    },
+    {
+      "id": "no-in-place-downgrade",
+      "title": "There is no in-place downgrade",
+      "description": "An older beta may not understand data that a newer build has written. Pointing an older installer at an upgraded data folder can lose or corrupt work.",
+      "affectedVersions": ["0.5.0-rc.1"],
+      "status": "limitation",
+      "workaround": "Restore a pre-upgrade backup into a fresh profile, then install the older build. Keep the upgraded data folder untouched until the restored copy is checked."
+    },
+    {
+      "id": "provider-access",
+      "title": "External providers require your own access",
+      "description": "Provider accounts, subscriptions where applicable, network access and quota are required. Model catalogues, availability and billing are controlled by the provider, not by Juno.",
+      "affectedVersions": ["0.5.0-rc.1"],
+      "status": "limitation"
+    },
+    {
+      "id": "chatgpt-models-account-scoped",
+      "title": "ChatGPT-plan models are account-scoped",
+      "description": "The model list for a ChatGPT-plan connection is read from that account and can be empty or can change independently of Juno. An explicit model choice is never silently replaced; a retired or unavailable model is reported instead of being swapped.",
+      "affectedVersions": ["0.5.0-rc.1"],
+      "status": "limitation",
+      "workaround": "Open the model picker and choose a model the connected account currently offers. Reconnect the account if its connection expired."
+    },
+    {
+      "id": "code-requires-omp",
+      "title": "Code work needs the external OMP worker runtime",
+      "description": "Juno bundles its Code coordinator (Boreal), the Ariadne verifier and the Codex runtime, but it does not bundle OMP. Code execution requires OMP plus provider authentication it can use, so Juno cannot reuse every desktop provider login for Code.",
+      "affectedVersions": ["0.5.0-rc.1"],
+      "status": "limitation",
+      "workaround": "Install and configure OMP, then confirm the Code runtime reports a model catalogue in Settings before starting Code work."
+    },
+    {
+      "id": "no-workspace-spend-cap",
+      "title": "There is no enforceable workspace-wide spending cap",
+      "description": "Per-task ceilings and refusals for unpriced workers still apply, but Juno cannot enforce a hard spending limit across every external provider route. Do not treat Juno as a spending guarantee.",
+      "affectedVersions": ["0.5.0-rc.1"],
+      "status": "limitation"
+    },
+    {
+      "id": "ariadne-scope",
+      "title": "Ariadne verification is deliberately scoped",
+      "description": "Ariadne locally verifies owner-declared checks and the Code revision it is given. It does not prove every model statement, every tool side effect or anything outside the declared checks.",
+      "affectedVersions": ["0.5.0-rc.1"],
+      "status": "limitation"
+    },
+    {
+      "id": "read-only-code-scope",
+      "title": "Read-only Code observes the project copy it was given",
+      "description": "A read-only Code request passes only when nothing changed in the project copy the run was given. Tool-owned trees (dependencies, build output, version-control metadata and caches) are excluded from that comparison, and a project containing a link or reparse point is refused before it is copied. Changes made to the selected project by another program during the run are not part of that copy and are not reported.",
+      "affectedVersions": ["0.5.0-rc.1"],
+      "status": "limitation"
+    },
+    {
+      "id": "update-notice-not-connected",
+      "title": "In-app update notices are not yet pointed at this release",
+      "description": "The signed announcement feed still describes the previous beta. Until it is republished for v0.5, Juno will not announce this release in-app; the GitHub releases page is the authoritative source for new builds.",
+      "affectedVersions": ["0.5.0-rc.1"],
+      "status": "limitation",
+      "workaround": "Check https://github.com/tanishkfr/juno-beta/releases for newer builds. In-app notices appear once the signed feed is updated."
+    },
+    {
+      "id": "remote-paired-unqualified",
+      "title": "Modeled actions are desktop-scoped in this beta",
+      "description": "The paired-client authorization defect from earlier betas is fixed and its suites pass, but a live paired-device mutation run was not part of the v0.5 qualification. Keep modeled actions in the desktop app.",
+      "affectedVersions": ["0.5.0-rc.1"],
+      "status": "limitation"
+    },
+    {
+      "id": "accessibility-walkthrough-partial",
+      "title": "Screen-reader walkthrough is partial",
+      "description": "Keyboard navigation, visible focus, contrast, text scaling, forced colours and reduced motion are covered by the product's existing contracts. A full NVDA/Narrator speech-output session was not completed for this beta.",
+      "affectedVersions": ["0.5.0-rc.1"],
+      "status": "limitation"
+    },
+    {
+      "id": "optional-runtimes-download",
+      "title": "Some Windows integrations are optional downloads",
+      "description": "The installer includes the application, the Code coordinator, the Ariadne verifier, the Codex runtime and local speech assets. The browser engine, Android platform tools and cloudflared are installed on request from Settings, and a download that is still running is not treated as installed.",
+      "affectedVersions": ["0.5.0-rc.1"],
+      "status": "limitation"
+    },
+    {
+      "id": "read-only-code-without-target",
+      "title": "Read-only Code requests with no file target were refused",
+      "description": "A Code question that asked for an explanation and named no file or command had no acceptance criterion, so the engine refused to start it. It now derives a no-change criterion and passes only when the run changed nothing.",
+      "affectedVersions": ["0.4.2", "0.5.0-rc.1"],
+      "status": "resolved",
+      "fixedIn": "0.5.0-rc.1",
+      "resolvedAt": "2026-11-15"
+    },
+    {
+      "id": "value-change-read-as-investigation",
+      "title": "A stated value change was treated as read-only analysis",
+      "description": "A request such as “Set the exported value to 2” contained no verb from the mutation list, so it was routed as an investigation and its correct edit then failed the no-change criterion. It is now recognized as a mutating request.",
+      "affectedVersions": ["0.4.2", "0.5.0-rc.1"],
+      "status": "resolved",
+      "fixedIn": "0.5.0-rc.1",
+      "resolvedAt": "2026-11-15"
+    },
+    {
+      "id": "credential-rejection-shown-as-catalog-outage",
+      "title": "A rejected credential looked like a catalog outage",
+      "description": "When a saved provider credential was rejected while the model catalog was read, the surface reported an unavailable catalog instead of an authentication problem. It now reports that the credential or plan needs attention.",
+      "affectedVersions": ["0.4.2", "0.5.0-rc.1"],
+      "status": "resolved",
+      "fixedIn": "0.5.0-rc.1",
+      "resolvedAt": "2026-11-15"
+    },
+    {
+      "id": "update-announcement-no-release-page",
+      "title": "An update announcement could not name its own download page",
+      "description": "The update card always opened a fixed code-host page. A signed announcement may now carry its own HTTPS release page, which is validated before it is opened; the build's trusted page remains the fallback.",
+      "affectedVersions": ["0.4.2", "0.5.0-rc.1"],
+      "status": "resolved",
+      "fixedIn": "0.5.0-rc.1",
+      "resolvedAt": "2026-11-15"
+    }
+  ]
+}

@@ -1,16 +1,16 @@
 name: Bug report
-description: Report a reproducible problem in Juno v0.4.2 Beta
+description: Report a reproducible problem in Juno v0.5 Beta
 title: "[Bug] "
 labels: ["bug", "beta"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for testing **Juno v0.4.2 Beta** (`0.4.2`).
+        Thanks for testing **Juno v0.5 Beta** (`0.5.0-rc.1`).
 
         Before filing, check the [known issues](https://github.com/tanishkfr/juno-beta/blob/main/KNOWN_ISSUES.md).
-        The unsigned installer, manual updates, Windows 11 x64-only support and provider-dependent
-        models are documented limitations, not new bugs.
+        The unsigned installer, manual updates, account-scoped ChatGPT models and the external OMP
+        requirement for Code are documented boundaries, not new bugs.
 
         **Security problems:** do not post exploit details here. See
         [SECURITY.md](https://github.com/tanishkfr/juno-beta/blob/main/SECURITY.md) or email
@@ -19,14 +19,14 @@ body:
         Remove API keys, tokens, cookies, private paths and personal data from anything you paste.
         Do not attach a raw log without reviewing it. This issue is public.
 
-        For a private report from inside Juno, use Settings > Help & feedback > Report a bug, then
-        Open Email Draft.
+        You can also report privately from inside Juno: **Settings → Help & feedback → Report a bug →
+        Open Email Draft**.
   - type: input
     id: version
     attributes:
       label: Juno version
-      description: Settings > General, or the installer filename.
-      placeholder: "Juno v0.4.2 Beta (0.4.2)"
+      description: Settings → General, or the installer filename.
+      placeholder: "Juno v0.5 Beta · 0.5.0-rc.1"
     validations:
       required: true
   - type: input
@@ -40,21 +40,22 @@ body:
   - type: dropdown
     id: feature
     attributes:
-      label: Feature
+      label: Affected area
       options:
         - Installer / first launch
         - Onboarding
-        - Agent conversation
-        - Code
+        - Companion conversation
+        - Recent Work / history
+        - Composer / attachments
+        - Code (read-only or editing)
         - Missions / approvals
-        - Permissions / approval
-        - Library / artifact
-        - Presentation
-        - Video
-        - Voice
+        - Ariadne verification
+        - Model picker / providers
+        - ChatGPT-plan connection
         - Settings
-        - Computer
-        - Updates
+        - Updates / version notice
+        - Themes / appearance
+        - Accessibility / keyboard
         - Other
     validations:
       required: true
@@ -69,7 +70,7 @@ body:
     id: actual
     attributes:
       label: Actual behavior
-      description: What happened? Include the exact message if there is one.
+      description: What happened? Include the exact message or status text if there is one.
     validations:
       required: true
   - type: textarea
@@ -98,7 +99,7 @@ body:
     id: evidence
     attributes:
       label: Screenshot or safe log
-      description: Optional. Redact keys, tokens, paths and personal data.
+      description: Optional. Redact keys, tokens, file paths, conversation content and personal data.
     validations:
       required: false
   - type: checkboxes
@@ -108,5 +109,5 @@ body:
       options:
         - label: I checked the known issues list and this is not a documented limitation.
           required: true
-        - label: I removed API keys, tokens, cookies and personal information from this report.
+        - label: I removed API keys, tokens, cookies, private paths and personal information from this report.
           required: true

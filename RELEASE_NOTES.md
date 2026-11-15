@@ -1,140 +1,135 @@
-# Juno v0.4.2 Beta — Performance & Polish
+# Juno v0.5 Beta — Release Notes
 
-**Public Beta · Windows 11 x64 · Version 0.4.2 · Unsigned installer · Manual updates**
+**Public Beta · Windows 11 x64 · Version `0.5.0-rc.1` · Unsigned installer · Manual updates**
 
-> **Version note:** the public beta is titled v0.4.2; the installed application
-> reports its internal build version as `0.4.2-rc.3`. The signed update feed
-> uses `0.4.2-rc.3` so the published build recognizes itself as up to date.
-> This is not a stable `0.4.2` binary.
+Release date: 2026-11-15
 
-Juno v0.4.2 is a performance and polish release. It keeps the provider routes,
-Code execution boundary, Council policy, Ariadne verification and exact model
-pins from v0.4.1. It is not a frontend rewrite and it does not remove Boreal,
-Pi or OMP.
+| Field | Value |
+|---|---|
+| Public title | Juno v0.5 Beta |
+| Installed version | `0.5.0-rc.1` (Settings shows “Juno v0.5 Beta · 0.5.0-rc.1”) |
+| Installer | `juno-0.5.0-rc.1-setup.exe` |
+| Size | 261,843,896 bytes (249.7 MiB) |
+| SHA-256 | `B8C931EC42D7892B5FA8E64781220A3A270895AD586636801E53C1452CEBB5C6` |
+| Source revision | `9a53d136` |
+| Platform | Windows 11 x64 |
+| Signature | **NotSigned** |
 
-## Download
+> This is a release candidate for the public beta, not a stable `0.5.0` binary.
+> If you are looking for an older build, every published release remains on the
+> [releases page](https://github.com/tanishkfr/juno-beta/releases).
 
-| Variant | File | Size |
-|---|---|---:|
-| **Compact (recommended)** | `juno-0.4.2-setup.exe` | 252,282,304 B |
-| **Full/offline** | `juno-0.4.2-full-setup.exe` | 488,599,330 B |
+## Highlights
 
-The full variant includes the pinned browser engine, Whisper base.en model,
-Android platform tools and cloudflared. External model providers still need
-internet access, an account and quota.
+### One unified, companion-first workspace
 
-## Verify before installing
+The separate Bot and Code modes are gone. A single workspace carries the
+companion sidebar, the conversation, Code and Mission work, with one composer and
+one history. Code work stays attached to the conversation that authorized it.
+
+### Refined sidebar, composer and atmosphere
+
+- Recent Work sits directly below the companions, grouped by project, with
+  compact status marks and clear selected states.
+- The composer is a single compact surface: attachments and secondary tools in
+  the toolbar, **Code** and **Mission** as first-class actions, a clean multiline
+  input, and the same keyboard and model controls as before.
+- A Juno-inspired pixel atmosphere fills a genuinely empty conversation and
+  settles into a neutral canvas on the first message. Existing threads open in
+  the settled state, and reduced-motion preferences are respected.
+- Both the OLED-black and warm light themes were refined, with contrast checked
+  across surfaces. Replies and your own messages carry the reading weight; tool
+  activity stays quiet.
+
+### Missions with preview and durable recovery
+
+A Mission is previewed with its objective, expected effects, model route and
+authorization boundary before anything runs. After you authorize it, Juno hands
+the work to Code without asking you to repeat the request. A pending decision,
+the exact child identity and its attempt survive a restart; an uncertain side
+effect is never replayed and a second child is never created.
+
+### Read-only Code answers
+
+A Code question that asks for an explanation — or that says no file may change —
+is a normal, verifiable request. Juno evaluates the run's own before/after
+fingerprints: nothing changed is a pass, and a worker that writes during a
+read-only run fails validation and is never offered for transfer. A read-only run
+never claims Ariadne verification.
+
+### Ariadne verification
+
+Ariadne locally verifies owner-declared checks and the Code revision it is given.
+Juno shows “the model said so” and “independently verified” as different things.
+Ariadne does not prove every model statement or external side effect.
+
+### Provider and model fixes
+
+- ChatGPT-plan catalogues are read from the connected account and report a retry
+  state instead of a blank list.
+- An explicit model choice is never silently replaced; a retired model is
+  reported and you are asked to choose another.
+- A rejected credential found while reading a catalogue is reported as an
+  authentication problem, not a catalogue outage.
+
+### Update announcements
+
+A signed manifest can announce a newer release and name its own HTTPS download
+page. The page is validated before it is opened, invalid signatures and unsafe
+URLs are refused, and **nothing is downloaded or installed automatically**.
+
+## Download and verify
+
+Download `juno-0.5.0-rc.1-setup.exe` and `SHA256SUMS.txt` from the release page:
+
+<https://github.com/tanishkfr/juno-beta/releases/tag/v0.5.0-rc.1>
 
 ```powershell
-Get-FileHash .\juno-0.4.2-setup.exe -Algorithm SHA256
-Get-FileHash .\juno-0.4.2-full-setup.exe -Algorithm SHA256
+Get-FileHash .\juno-0.5.0-rc.1-setup.exe -Algorithm SHA256
 ```
 
 Expected:
 
 ```text
-4ab457a97c0fb768768720adcc7c9af4bc5899fef5d2d070d15176c51aa5522b  juno-0.4.2-setup.exe
-8f73fe74e983ac217bfc15f4c71b34b3a72dac2072617a2ac497a328c126f278  juno-0.4.2-full-setup.exe
+B8C931EC42D7892B5FA8E64781220A3A270895AD586636801E53C1452CEBB5C6  juno-0.5.0-rc.1-setup.exe
 ```
 
-The installer is **unsigned**. Windows may show Unknown Publisher or
-SmartScreen. Continue only if the checksum matches. Do not disable Windows
-security controls.
+The installer is **unsigned**. Windows may show Unknown Publisher or SmartScreen.
+Verify the checksum, and do not disable Windows security controls. Full steps:
+[INSTALL.md](INSTALL.md).
 
-## Highlights
+## Upgrading from v0.4.x
 
-### Fewer reported input tokens
+1. Back up your workspace first (Settings → Backups → Export full backup, or a
+   copy of `%USERPROFILE%\.juno`).
+2. Quit Juno completely.
+3. Run the v0.5 installer. It upgrades in place and preserves companions,
+   conversations, credentials, settings and work items.
+4. Open Juno and confirm your provider connections and model pins.
 
-In the matched Phase 1 short-turn benchmark, Juno reported approximately
-**80.5% fewer input tokens**. Task-aware tool exposure sends only the tools a
-turn needs, and the direct-turn catalogue is smaller. This is a measured
-benchmark result on that task shape. It does not mean every task, provider or
-conversation will use 80.5% fewer tokens.
+An in-place downgrade is **not supported**. Restore a pre-upgrade backup into a
+fresh profile if you need to return to an earlier build.
 
-### Smaller and faster
+## Known issues
 
-- Compact installer: **271.7 MB → 252.3 MB**.
-- Warm health median **3,253 ms**, first renderer body **6,479 ms**, and
-  composer-ready **6,372 ms** on the tested Windows host.
-- The renderer now reports shell-mounted, first-transcript and composer-ready
-  marks, so startup claims reflect what you can actually use.
+The complete, current list — including the one open issue and the accepted beta
+limitations — is in [KNOWN_ISSUES.md](KNOWN_ISSUES.md), and the same records are
+published as structured data at
+[`support/v0.5.0-rc.1/known-issues.json`](support/v0.5.0-rc.1/known-issues.json).
 
-These are measurements from the qualification host, not guarantees.
+Highlights:
 
-### Modular optional runtimes
+- The installer is unsigned and updates are manual.
+- Code execution needs the external OMP runtime, which is not bundled.
+- External providers require your own account, access and quota.
+- There is no workspace-wide spending hard cap.
+- A carried-over conversation can fail to load on an upgraded profile (see the
+  known-issues list for details).
 
-- Android platform tools and cloudflared are optional downloads with pinned
-  versions, sizes and SHA-256 hashes. Install, verify, repair and remove them
-  from Settings.
-- Browser engine and Whisper remain optional in the compact variant and are
-  included in the full/offline variant.
-- Codex, Boreal/OMP and CUA remain bundled. They are not optional downloads.
+## Not claimed
 
-### Onboarding and Settings
-
-- Capability onboarding presents Chat, Coding, Browser, Computer control,
-  Android devices, Local voice and Remote access with purpose, included or
-  download size, and honest offline behaviour.
-- A failed optional download is listed on the ready screen with Retry; it does
-  not block setup.
-- Runtimes & storage shows ready/attention counts, provider health, measured
-  application/managed/optional/cache storage, accessible progress and safe
-  removal confirmation.
-
-### Code Mode correctness
-
-- “Do not change README.md” no longer authorizes README.md as a writable target.
-  A file named only to run (`node check.mjs`) is an input, not an editable
-  target.
-- Explicit content criteria (“containing exactly …”, “append a line …”, “two
-  lines: the first line is …”) become deterministic checks over the staged
-  workspace.
-- A verified but unapplied change remains **staged**. Applying records
-  completion; discarding or rolling back records cancellation. Failed staging
-  or validation is reported as failed, never completed.
-- The final Code message states whether the change is staged, could not be
-  staged, or failed validation.
-
-### Browser cleanup
-
-- The model can close its own tab or browser session with
-  `agent_browser_tab_close` / `agent_browser_close`. The close is scoped to the
-  bot's isolated session; it cannot close your browser or another application's
-  browser.
-- A closed session is settled even when it never performed an action, so it
-  cannot leave an agent-owned browser row behind.
-- Cancellation and app exit release owned sessions.
-
-### Installer identity and release safety
-
-- Packaging uses named production and test profiles. App ID, product name,
-  package/install directory, user-data directory, protocol, uninstall GUID,
-  toast CLSID, update channel and executable are validated before and after
-  packaging.
-- A test installer cannot claim the production identity, and a production
-  installer cannot be installed over a different identity.
-
-### Preserved
-
-- Codex ChatGPT-plan subscription route and exact model pins.
-- Council planner/executor/reviewer policy and mandatory reviewer settlement.
-- Ariadne as the independent Code verification authority.
-- Existing task, approval, spend and capability boundaries.
-
-## Compatibility
-
-- Windows 11 x64 is the qualified platform.
-- v0.4.2 upgrades v0.4.1 in place with the same application identity.
-- The public v0.4.1 installer remains available for a manual rollback. Back up
-  your data first. Rollback compatibility is not promised for future schema
-  versions.
-- Installation and updates are manual. Juno does not download or run an
-  installer from the signed announcement feed.
-
-## Known limitations
-
-See [KNOWN_ISSUES.md](KNOWN_ISSUES.md). The main points are: unsigned
-installers, manual updates, no enforceable universal spending hard cap, no
-automatic safe idle retirement of Boreal/OMP or CUA, hardware-bound Android
-qualification, no live microphone acceptance, and no public remote-access tunnel
-exercise. External providers require their own accounts and subscriptions.
+- No Authenticode publisher trust and no SmartScreen reputation.
+- No automatic installer download or installation.
+- No guarantee that an external provider keeps offering a given model.
+- No general remote/paired-device mutation support.
+- No workspace-wide spending guarantee.

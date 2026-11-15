@@ -1,14 +1,14 @@
 blank_issues_enabled: false
 contact_links:
-  - name: Download Juno v0.4.2 Beta
-    url: https://github.com/tanishkfr/juno-beta/releases/tag/v0.4.2
+  - name: Download Juno v0.5 Beta
+    url: https://github.com/tanishkfr/juno-beta/releases/tag/v0.5.0-rc.1
     about: Read the release notes, verify the SHA-256, and download the installer.
   - name: Install, upgrade and troubleshooting guide
     url: https://github.com/tanishkfr/juno-beta/blob/main/INSTALL.md
-    about: Requirements, verification, first run and common problems.
+    about: Requirements, verification, first run, rollback and common problems.
   - name: Known issues and limitations
     url: https://github.com/tanishkfr/juno-beta/blob/main/KNOWN_ISSUES.md
-    about: Check the current list before opening a bug report.
+    about: Check the current, versioned list before opening a bug report.
   - name: Security problem
     url: https://github.com/tanishkfr/juno-beta/blob/main/SECURITY.md
     about: Report vulnerabilities privately. Do not post exploit details in a public issue.

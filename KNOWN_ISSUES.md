@@ -1,121 +1,107 @@
-# Known issues and limitations — Juno v0.4.2 Beta
+# Known issues and limitations — Juno v0.5 Beta
 
-Release `0.4.2` · 2026-11-11 · Windows 11 x64
+Release `0.5.0-rc.1` · 2026-11-15 · Windows 11 x64 · Unsigned · Manual updates
 
-This is the current limitation list for **Juno v0.4.2 Beta — Performance &
-Polish**. A listed limitation is a known boundary, not a claim that the area is
-production-ready.
+This page lists what is currently known about **Juno v0.5 Beta**. It is
+versioned: each item names the versions it affects, and resolved items say which
+release fixed them. The same records are published as structured data for the
+website at
+[`support/v0.5.0-rc.1/known-issues.json`](support/v0.5.0-rc.1/known-issues.json),
+so the site and this page cannot disagree.
 
-## Release and installation
+Older releases keep their own documentation:
+[v0.4.2 known issues](support/v0.4.2/KNOWN_ISSUES.md) ·
+[v0.4.2 release](https://github.com/tanishkfr/juno-beta/releases/tag/v0.4.2).
 
-1. **Windows 11 x64 only.** Windows 10, macOS, Linux, ARM64 and 32-bit Windows
-   are not qualified for this Beta.
-2. **Unsigned installer.** The installer has no Authenticode signature. Windows
-   may show Unknown Publisher or SmartScreen, and some managed PCs may block
-   it. Verify the published SHA-256 before running it. Do not disable Windows
-   security controls.
-3. **Manual updates.** Juno does not download or run installers. Installation
-   and updates are manual for this Beta. The signed automatic-installer upgrade
-   path is not qualified.
-4. **In-place upgrade only.** Juno uses the same application identity as earlier
-   Beta builds. It upgrades an existing installation in place; it does not
-   install side by side.
-5. **Compact vs full.** The compact installer omits the browser engine and
-   Whisper weights; both are optional, verified downloads. The full/offline
-   variant includes the browser engine, Whisper model, Android tools and
-   cloudflared. External model providers still need internet access.
-6. **Disk space.** About 1.05 GB installed for the compact build, about 1.50 GB
-   for the full build, plus optional assets, projects and backups.
-7. **No clean-room Windows VM for this closure.** The production v0.4.1 →
-   v0.4.2 upgrade, rollback and re-upgrade ran on the owner's Windows 11 host
-   with a complete verified backup and exact rollback installers. The rebuilt
-   full/offline installer was identity-verified and smoke-tested from the same
-   qualified source on the isolated test identity; a fresh production-identity
-   full NSIS registration was not repeated because no disposable Windows
-   profile or VM was available.
+A listed limitation is a known boundary, not a promise that the area is
+finished. Nothing here is a security advisory; see [SECURITY.md](SECURITY.md) for
+responsible disclosure.
 
-## Updates and signing
+## Open issues
 
-8. **No Authenticode publisher identity and no SmartScreen reputation.** SHA-256
-   proves integrity, not who built the file.
-9. **The signed automatic-installer upgrade path is not qualified.** Do not wait
-   for an automatic update. Download the installer manually.
-10. **Signed metadata is announcement-only.** Juno may check Ed25519-signed
-    release metadata and show release notes. `electron-updater` has no live
-    automatic-install feed, and Juno never downloads or runs an installer for
-    you. The packaged `app-update.yml` uses the reserved host `updates.invalid`.
-11. **No general downgrade support.** Running an older installer manually is
-    possible, but data written by a newer build may not be understood by the
-    older one. Back up local data before rolling back.
-12. **Rollback compatibility is bounded.** The public v0.4.1 installer can
-    restore v0.4.1 after a backup. Unrestricted rollback compatibility with
-    future schema versions is not promised.
+### `conversation-load-unavailable` — A carried-over conversation can fail to load
 
-## Spending controls
+- **Affects:** `0.5.0-rc.1`
+- **Status:** open · **Severity:** medium
+- **What happens:** on a profile upgraded from an earlier beta — especially one
+  restored from a backup — a companion can remember a conversation that is no
+  longer attached to it. Juno then shows *“Your workspace is unavailable. Check
+  the server connection in Advanced settings, then retry.”* and that transcript
+  does not load.
+- **Impact:** the affected conversation cannot be opened from that companion.
+  The conversation is still stored in your profile; it is not deleted. Other
+  companions and new conversations are unaffected.
+- **Workaround:** none verified yet. Report it with your version if it blocks
+  work; keep a profile backup.
 
-13. **No enforceable workspace-wide spending hard cap.** A hard cap remains
-    unenforceable across some external provider routes. Do not treat Juno as an
-    absolute spending guarantee.
-14. **Boreal internal worker iterations are not all bounded by Juno's
-    model-call ceiling.** Juno authorizes and verifies the worker model and
-    policy. Boreal's internal loop count is outside Juno's interception.
-15. **Unpriced usage remains unknown.** Subscription-backed usage is often
-    unpriced and is recorded as unknown, not zero. Unpriced external workers
-    under a task ceiling remain refused unless explicitly allowed.
+## Limitations
 
-## Provider and network
+1. **`windows-11-x64-only` — Windows 11 x64 is the only qualified platform.**
+   Windows 10, ARM64, 32-bit Windows, macOS and Linux are not qualified for this
+   beta.
+2. **`unsigned-installer` — the installer is unsigned.** No Authenticode
+   publisher identity and no SmartScreen reputation. Windows may warn or block.
+   Verify the published SHA-256; do not disable Windows security controls.
+3. **`manual-updates` — updates are manual.** Juno can announce a signed release
+   and open its download page, but it never downloads or runs an installer for
+   you.
+4. **`no-in-place-downgrade` — an older build may not read v0.5 data.** Restore a
+   pre-upgrade backup into a fresh profile instead of pointing an older installer
+   at upgraded data.
+5. **`provider-access` — external providers need your own access.** Accounts,
+   subscriptions, network access and quota are required; catalogues, availability
+   and billing are controlled by the provider.
+6. **`chatgpt-models-account-scoped` — ChatGPT-plan models are account-scoped.**
+   The list comes from the connected account and can be empty or change. A saved
+   model that is no longer offered is reported, never silently replaced.
+7. **`code-requires-omp` — Code work needs the external OMP runtime.** Juno
+   bundles its Code coordinator (Boreal), the Ariadne verifier and the Codex
+   runtime, but not OMP, and it cannot reuse every desktop provider login for
+   Code.
+8. **`no-workspace-spend-cap` — there is no enforceable workspace-wide spending
+   cap.** Per-task ceilings and refusals for unpriced workers still apply.
+9. **`ariadne-scope` — Ariadne verification is scoped.** It verifies
+   owner-declared checks and the Code revision it is given, not every model
+   statement or side effect.
+10. **`read-only-code-scope` — read-only Code observes the project copy it was
+    given.** Tool-owned trees (dependencies, build output, version-control
+    metadata and caches) are excluded from the comparison, a project containing a
+    link or reparse point is refused before it is copied, and changes another
+    program makes to the project during the run are not reported.
+11. **`update-notice-not-connected` — in-app update notices are not yet pointed
+    at this release.** The signed feed still describes the previous beta; until
+    it is republished, the releases page is authoritative.
+12. **`remote-paired-unqualified` — modeled actions are desktop-scoped.** The
+    paired-client authorization defect is fixed, but a live paired-device
+    mutation run was not part of this qualification.
+13. **`accessibility-walkthrough-partial` — the screen-reader walkthrough is
+    partial.** Keyboard navigation, focus, contrast, scaling, forced colours and
+    reduced motion are covered; a full NVDA/Narrator session was not completed.
+14. **`optional-runtimes-download` — some Windows integrations are optional
+    downloads.** The browser engine, Android platform tools and cloudflared are
+    installed on request from Settings; a download that is still running is not
+    treated as installed.
 
-16. **Provider accounts, subscriptions, quotas and network access are
-    required** for external models. Juno does not supply provider capacity.
-    Each provider has independent account, subscription, quota and network
-    requirements.
-17. **Model availability can change independently of Juno.** A provider may
-    retire, rename or restrict a model. An explicit stale pin is refused rather
-    than silently replaced.
-18. **External provider errors are outside Juno's control.** An expired or
-    rejected provider credential is reported honestly; Juno does not substitute
-    another model or provider silently.
+## Resolved in 0.5.0-rc.1
 
-## Capability qualification
+1. **`read-only-code-without-target`** — a read-only Code question with no file
+   target or command was refused for having no acceptance check. It now derives a
+   no-change criterion and passes only when nothing changed. *Fixed in
+   `0.5.0-rc.1`.*
+2. **`value-change-read-as-investigation`** — a request such as “Set the exported
+   value to 2” was routed as an investigation, so its correct edit failed. It is
+   now recognized as a mutating request. *Fixed in `0.5.0-rc.1`.*
+3. **`credential-rejection-shown-as-catalog-outage`** — a rejected credential
+   found during catalogue discovery looked like a catalog outage. It is now
+   reported as an authentication problem with the action to take. *Fixed in
+   `0.5.0-rc.1`.*
+4. **`update-announcement-no-release-page`** — an update announcement could not
+   name its own download page. A signed announcement may now carry its own
+   validated HTTPS release page, with the build’s page as fallback. *Fixed in
+   `0.5.0-rc.1`.*
 
-19. **Speech acceptance is partial.** Installed speech components and local
-    Whisper transcription passed. The bundled Whisper engine transcribed a
-    synthetic WAV exactly. **Live microphone recording was not exercised during
-    final qualification**, so a human recording and cancellation-cleanup pass
-    remain owner acceptance items.
-20. **Android device control is hardware-bound.** The Android runtime, pinned
-    `adb.exe`, install/verify/remove paths and version probe passed. No physical
-    USB device was attached for a live device-control test.
-21. **Remote-access tunneling is account-bound.** cloudflared was installed,
-    hash- and size-verified and version-probed. No Cloud-authorized public
-    tunnel was started, and no public listener was left running.
-22. **Computer control was qualified with real observation and bounded input.**
-    The final candidate observed the active desktop and performed a safe
-    Calculator input. It was not a full multi-application automation suite.
-23. **Council is bounded evidence.** Planner, executor and reviewer roles were
-    exercised live on the qualified route, with the mandatory reviewer settling
-    the parent task. Not every provider or custom role combination was re-run.
-24. **Code Mode uses the bundled Boreal/OMP runtime.** It needs provider
-    authentication configured there; Juno cannot reuse every desktop provider
-    login for it.
-25. **No automatic safe idle retirement.** Boreal/OMP and CUA remain resident
-    while Juno runs. Juno does not terminate them on an idle timer because
-    ownership coverage across runs, terminals, approvals, reviews and sessions
-    is not yet sufficient to do so safely.
-26. **Screen-reader acceptance is partial.** Keyboard navigation, visible focus,
-    contrast, zoom, forced colours and reduced motion were checked. A real
-    NVDA/Narrator speech-output session was not completed.
-27. **Some inherited surfaces are visible but not qualified for this Beta.**
-    Teams, organization, Cloud, mobile pairing, backups and routines exist in
-    the codebase from earlier work. Do not treat every visible control as a
-    tested public-beta capability.
+## Reporting
 
-## Performance
-
-28. **Reply time is provider-bound.** Warm short replies measured about
-    2.29–2.92 seconds on the tested route. These are measurements, not
-    guarantees, and they do not imply that the underlying models became faster
-    or smarter.
-29. **The 80.5% token reduction is benchmark-specific.** It comes from the
-    matched Phase 1 short-turn benchmark and task-aware tool exposure. It is not
-    a universal per-task or per-provider claim.
+Use [FEEDBACK.md](FEEDBACK.md) for bugs and feature requests, and
+[SECURITY.md](SECURITY.md) for security problems. Do not post credentials,
+private file paths or personal content in a public issue.

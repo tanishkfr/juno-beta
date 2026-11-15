@@ -1,22 +1,21 @@
 {
   "schema": "juno-release-artifacts-1",
   "product": "Juno",
-  "version": "0.4.2",
-  "buildCandidate": "0.4.2-rc.3",
-  "releaseTitle": "Juno v0.4.2 Beta — Performance & Polish",
+  "version": "0.5",
+  "buildCandidate": "0.5.0-rc.1",
+  "releaseTitle": "Juno v0.5 Beta — Unified Companion Experience",
   "releaseType": "public-beta",
   "channel": "beta",
   "platform": "win32-x64",
   "supportedWindows": "Windows 11 x64",
-  "releaseDate": "2026-11-11",
-  "sourceCommit": "c0b7ec4d6e9bb682bbb96b2dcb77884c6f7abb5f",
+  "releaseDate": "2026-11-15",
+  "sourceCommit": "9a53d13604cbd95d191bb1698fe35f6a019f1936",
   "sourceAvailability": "Private application source is not part of this distribution repository. Only public release documentation and metadata are published here.",
   "artifactProvenance": {
-    "qualifiedCandidate": "0.4.2-rc.3",
-    "qualifiedCompactArtifact": "release-rc3/juno-0.4.2-rc.3-setup.exe",
-    "qualifiedFullArtifact": "release-rc3/juno-0.4.2-rc.3-full-setup.exe",
-    "publicationMethod": "Byte-identical copies of the qualified binaries, renamed to the public file names without modifying their contents.",
-    "verification": "Source and renamed copies were hashed before publication; both installers embed sourceCommit c0b7ec4d6e9bb682bbb96b2dcb77884c6f7abb5f and production appId com.agent.app."
+    "qualifiedCandidate": "0.5.0-rc.1",
+    "qualifiedCompactArtifact": "release/juno-0.5.0-rc.1-setup.exe",
+    "publicationMethod": "Byte-identical copy of the qualified production installer, uploaded without modifying its contents.",
+    "verification": "The published asset was re-downloaded from the draft release and hashed; it matches the qualified bytes exactly and embeds sourceCommit 9a53d136 and production appId com.agent.app."
   },
   "buildIdentity": "Juno",
   "appId": "com.agent.app",
@@ -32,69 +31,46 @@
     "signedMetadata": "Ed25519-signed announcement only; never downloads or executes an installer",
     "signedAutomaticInstallerUpgrade": "not qualified",
     "announcedVersion": "0.4.2-rc.3",
-    "versionNote": "The public beta is titled v0.4.2; the installed application and signed announcement feed use the internal build version 0.4.2-rc.3 so the published build recognizes itself as up to date."
+    "versionNote": "The signed announcement feed still describes the previous beta. Until it is republished for 0.5.0-rc.1, the releases page is authoritative and no v0.5 in-app announcement is expected."
   },
   "artifacts": [
     {
       "variant": "compact",
-      "fileName": "juno-0.4.2-setup.exe",
-      "bytes": 252282304,
-      "sha256": "4ab457a97c0fb768768720adcc7c9af4bc5899fef5d2d070d15176c51aa5522b",
+      "fileName": "juno-0.5.0-rc.1-setup.exe",
+      "bytes": 261843896,
+      "sha256": "b8c931ec42d7892b5fa8e64781220a3a270895ad586636801e53c1452cebb5c6",
       "default": true,
-      "provenance": "Byte-identical copy of the qualified 0.4.2-rc.3 production compact installer.",
+      "provenance": "Byte-identical copy of the qualified 0.5.0-rc.1 production compact installer.",
       "includes": [
-        "Bot Mode",
-        "Code Mode and Boreal/OMP",
+        "unified companion-first workspace",
+        "Companions and Recent Work",
+        "Code and Missions",
+        "Boreal Code coordinator",
+        "Ariadne verification runtime",
+        "Codex runtime",
         "Council",
-        "/btw",
-        "room/team execution",
         "model/provider integrations",
-        "Windows computer control",
-        "skills and tools",
         "memory, routines and persistence",
-        "Windows speech fallback",
-        "optional browser installer",
-        "optional Whisper model installer",
-        "optional Android tools installer",
-        "optional cloudflared installer"
+        "local speech assets",
+        "optional browser, Android tools and cloudflared installers"
       ],
       "omits": [
+        "the external OMP worker runtime (required for Code execution)",
         "bundled browser engine",
-        "Whisper base.en weights",
         "Android platform tools",
         "cloudflared"
       ]
-    },
-    {
-      "variant": "full-offline",
-      "fileName": "juno-0.4.2-full-setup.exe",
-      "bytes": 488599330,
-      "sha256": "8f73fe74e983ac217bfc15f4c71b34b3a72dac2072617a2ac497a328c126f278",
-      "default": false,
-      "provenance": "Byte-identical copy of the qualified 0.4.2-rc.3 production full/offline installer.",
-      "includes": [
-        "the compact application",
-        "bundled pinned browser engine",
-        "Whisper base.en model",
-        "Android platform tools",
-        "cloudflared"
-      ],
-      "notes": "Offline-capable runtime assets. External model providers still need internet access, an account and quota."
     }
   ],
   "verification": {
-    "realCodeModeEditAndApply": true,
-    "realCouncilPlannerExecutorReviewer": true,
-    "browserOpenReadClose": true,
-    "botBtwRoom": true,
-    "productionUpgradeRollbackReupgrade": true,
-    "productionDataPreserved": true,
+    "installedUiBotReadOnlyCode": "27/27",
+    "installedMissionAriadneRestart": "18/18",
+    "frozenCoordinatorProbe": "8/8",
+    "electronTests": "949 passed, 0 failed, 11 skipped (960 total)",
+    "securityLane": "ok (electron permission 54/54)",
+    "fastLane": "10,275 passed, 9 failed, 109 skipped; the 9 are recorded baseline/environment entries",
     "installerIsolation": true,
-    "electronTests": "914 passed, 0 failed, 11 skipped (925 total)",
-    "securityTests": "52/52",
-    "buildIdentityTests": "13/13",
-    "focusedCouncilBrowserComputer": "87/87",
-    "fullInstallerSmoke": "Isolated test-identity full/offline install from the same qualified source; production full installer identity-verified."
+    "productionProfileUntouched": true
   },
-  "internalVersion": "0.4.2-rc.3"
+  "internalVersion": "0.5.0-rc.1"
 }
