@@ -1,22 +1,32 @@
 name: Bug report
-description: Report a reproducible problem in Juno v0.4.1 Beta
+description: Report a reproducible problem in Juno v0.4.2 Beta
 title: "[Bug] "
 labels: ["bug", "beta"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for testing Juno v0.4.1 Beta. Please remove API keys, tokens, cookies and personal data
-        from anything you paste. Do not attach a raw log without reviewing it.
+        Thanks for testing **Juno v0.4.2 Beta** (`0.4.2`).
+
+        Before filing, check the [known issues](https://github.com/tanishkfr/juno-beta/blob/main/KNOWN_ISSUES.md).
+        The unsigned installer, manual updates, Windows 11 x64-only support and provider-dependent
+        models are documented limitations, not new bugs.
+
+        **Security problems:** do not post exploit details here. See
+        [SECURITY.md](https://github.com/tanishkfr/juno-beta/blob/main/SECURITY.md) or email
+        madebytanishk@gmail.com.
+
+        Remove API keys, tokens, cookies, private paths and personal data from anything you paste.
+        Do not attach a raw log without reviewing it. This issue is public.
 
         For a private report from inside Juno, use Settings > Help & feedback > Report a bug, then
-        Open Email Draft. This issue tracker is an alternative when you have repository access.
+        Open Email Draft.
   - type: input
     id: version
     attributes:
       label: Juno version
       description: Settings > General, or the installer filename.
-      placeholder: "Juno v0.4.1 Beta (0.4.1)"
+      placeholder: "Juno v0.4.2 Beta (0.4.2)"
     validations:
       required: true
   - type: input
@@ -36,6 +46,7 @@ body:
         - Onboarding
         - Agent conversation
         - Code
+        - Missions / approvals
         - Permissions / approval
         - Library / artifact
         - Presentation
@@ -95,5 +106,7 @@ body:
     attributes:
       label: Safety check
       options:
+        - label: I checked the known issues list and this is not a documented limitation.
+          required: true
         - label: I removed API keys, tokens, cookies and personal information from this report.
           required: true
