@@ -1,142 +1,158 @@
-# Installing Juno v0.4.2 Beta
+# Installing Juno v0.5 Beta
 
-This guide covers the Windows x64 installers for **Juno v0.4.2 Beta —
-Performance & Polish**.
+Version `0.5.0-rc.1` · Windows 11 x64 · Unsigned installer · Manual updates
+
+This guide covers installing, upgrading and uninstalling **Juno v0.5 Beta**. If
+something here does not match what you see, check
+[KNOWN_ISSUES.md](KNOWN_ISSUES.md) and the
+[releases page](https://github.com/tanishkfr/juno-beta/releases).
 
 ## Requirements
 
 - **Windows 11 x64.** Windows 11 is the qualified platform. Windows 10, macOS,
-  Linux, ARM64 and 32-bit Windows are not qualified for this Beta.
+  Linux, ARM64 and 32-bit Windows are not qualified for this beta.
 - **A supported provider account** for external models. Juno does not include
   model capacity, subscriptions or quota.
-- **Network access** for provider calls and, in the compact build, for optional
-  browser/Whisper downloads.
-- **Disk space:** about 1.05 GB for the compact application, or about 1.50 GB
-  for the full/offline variant. Leave additional space for projects, generated
-  files and backups.
+- **Network access** for provider calls and for optional runtime downloads.
+- **Disk space.** The installer is 249.7 MiB; the installed application and its
+  bundled runtimes need additional space. Leave room for projects and backups.
 - **No administrator rights required.** The installer is per-user.
 
-## Choose a download
+## Download
 
-| Variant | File | Size | Notes |
-|---|---|---:|---|
-| Compact (recommended) | `juno-0.4.2-setup.exe` | 252,282,304 B | Omits the browser engine and Whisper weights; installs them on request. |
-| Full/offline | `juno-0.4.2-full-setup.exe` | 488,599,330 B | Includes the pinned browser engine, Whisper base.en model, Android tools and cloudflared. |
+There is **one installer** for this release — no separate full/offline variant.
 
-Both variants contain the same application code. The full variant adds the
-larger optional runtime assets. External providers still need the internet.
+| File | Size |
+|---|---:|
+| `juno-0.5.0-rc.1-setup.exe` | 261,843,896 bytes (249.7 MiB) |
 
-## Download and verify
+Download it and `SHA256SUMS.txt` from the official release:
 
-Download the installer and `SHA256SUMS.txt` from the official release:
+<https://github.com/tanishkfr/juno-beta/releases/tag/v0.5.0-rc.1>
 
-<https://github.com/tanishkfr/juno-beta/releases/tag/v0.4.2>
+That release page is the only official source. Do not use third-party mirrors,
+repacks or “fixed” installers.
+
+## Verify before running the installer
 
 In PowerShell, from the download folder:
 
 ```powershell
-Get-FileHash .\juno-0.4.2-setup.exe -Algorithm SHA256
-Get-FileHash .\juno-0.4.2-full-setup.exe -Algorithm SHA256
+Get-FileHash .\juno-0.5.0-rc.1-setup.exe -Algorithm SHA256
 Get-Content .\SHA256SUMS.txt
 ```
 
-Expected SHA-256:
+Expected:
 
 ```text
-4ab457a97c0fb768768720adcc7c9af4bc5899fef5d2d070d15176c51aa5522b  juno-0.4.2-setup.exe
-8f73fe74e983ac217bfc15f4c71b34b3a72dac2072617a2ac497a328c126f278  juno-0.4.2-full-setup.exe
+B8C931EC42D7892B5FA8E64781220A3A270895AD586636801E53C1452CEBB5C6  juno-0.5.0-rc.1-setup.exe
 ```
 
-The hash is not case-sensitive. If it does not match, stop. Delete the file and
+The hash is not case-sensitive. If it does not match, stop: delete the file and
 download it again. Do not install a file whose provenance you cannot verify.
 
-On Linux, WSL or Git Bash you can also validate the released checksum file:
+On Linux, WSL or Git Bash you can validate the released checksum file:
 
 ```sh
 sha256sum --check SHA256SUMS.txt
 ```
 
-Expected output is `OK` for each installer and exit code `0`.
+Expected output is `OK` and exit code `0`.
 
 ## Unsigned installer
 
 The installer is **not code-signed**.
 
-- Authenticode status: `NotSigned`.
-- There is no verified publisher identity and no SmartScreen reputation.
+- Authenticode status: `NotSigned`; there is no verified publisher identity and
+  no SmartScreen reputation.
 - Windows may show **Unknown Publisher** or **Windows protected your PC**
   (SmartScreen).
 - If SmartScreen appears, choose **More info**, confirm the file name, then
   **Run anyway** — only after the SHA-256 matches.
 - Do **not** disable Microsoft Defender, SmartScreen, Smart App Control,
-  antivirus software or any other Windows security control.
-- Some managed or enterprise PCs block unsigned installers by policy. If
-  Windows blocks the installer and you cannot proceed safely, stop and contact
-  your administrator. Do not work around a security block.
-- The checksum proves integrity, not publisher identity. There is no
-  Authenticode signature for this Beta.
+  antivirus or any other Windows security control.
+- Some managed PCs block unsigned installers by policy. If Windows blocks the
+  installer and you cannot proceed safely, stop and contact your administrator.
+- The checksum proves integrity, not who built the file.
 
 ## New installation
 
 1. Close any running Juno window.
-2. Run the installer. The compact and full installers share the same
-   application identity, so installing one over the other is an in-place
-   replacement, not a second installation.
-3. The installer places the application in
-   `%LOCALAPPDATA%\Programs\juno`, creates a **Juno** Start menu entry and a
-   desktop shortcut, and registers **Juno** in **Settings > Apps > Installed
-   apps**.
+2. Run the installer.
+3. The installer places the application in `%LOCALAPPDATA%\Programs\juno`, creates
+   a **Juno** Start menu entry and a desktop shortcut, and registers **Juno** in
+   **Settings → Apps → Installed apps**.
 4. The installer does not launch Juno automatically.
 5. Open Juno from the Start menu or desktop shortcut.
 
 ## First run and connecting providers
 
-1. Complete onboarding: display name, starting companion, and any optional
+1. Complete onboarding: your name, a starting companion, and any optional
    capabilities you want.
 2. Connect at least one provider in Settings. Provider accounts, subscriptions,
    quotas and network access are your responsibility.
-3. For the ChatGPT-plan Codex route, sign in with the official Codex flow. Juno
-   preserves that subscription route and does not silently redirect it to a
-   billable API key.
-4. Codex, Boreal/OMP and CUA are bundled. Browser, Whisper, Android tools and
-   cloudflared are optional in the compact build and can be installed from
-   Settings.
-5. Existing profiles skip onboarding. Your bots, conversations, model pins and
+3. For the ChatGPT-plan Codex route, use the official Codex sign-in. Juno keeps
+   that subscription route and does not redirect it to a billable API key.
+4. Juno bundles its Code coordinator (Boreal), the Ariadne verifier, the Codex
+   runtime and local speech assets. The browser engine, Android platform tools and
+   cloudflared are installed on request from Settings.
+5. **Code work additionally needs the external OMP runtime**, installed and
+   authenticated. Juno does not bundle it.
+6. Existing profiles skip onboarding; companions, conversations, model pins and
    settings are retained.
 
-## Upgrading from v0.4.1
+## Upgrading from v0.4.x
 
-1. Back up your Juno data and keep the v0.4.1 installer available.
+1. **Back up first.** In Juno, open **Settings → Backups → Export full backup**,
+   or quit Juno and copy `%USERPROFILE%\.juno` to a protected folder.
 2. Close Juno completely.
-3. Run the v0.4.2 installer silently or interactively. It upgrades in place and
-   preserves bots, conversations, credentials, settings and work items.
-4. Open Juno and confirm your provider and model pins.
+3. Run the v0.5 installer. It upgrades in place and preserves companions,
+   conversations, credentials, settings and work items.
+4. Open Juno, let it finish starting, and confirm your provider connections and
+   model pins.
 
-The v0.4.1 public installer remains available at:
+If a conversation from an older profile does not open after the upgrade, see
+`conversation-load-unavailable` in [KNOWN_ISSUES.md](KNOWN_ISSUES.md).
 
-<https://github.com/tanishkfr/juno-beta/releases/tag/v0.4.1>
+## Returning to an earlier build
 
-Use it only after backing up your data. Data written by a newer build may not
-be understood by an older build; rollback compatibility is not promised for
-future schema versions.
+An in-place downgrade is **not supported**. Data written by v0.5 may not be
+understood by an older build.
 
-## Full/offline variant
+1. Keep the upgraded data folder as it is; do not point an older build at it.
+2. Restore your pre-upgrade backup into a fresh profile.
+3. Reinstall the older installer and open the restored profile.
 
-The full installer includes the pinned browser engine, Whisper base.en model,
-Android tools and cloudflared. It does not remove the need for internet access
-to external model providers. After installation, Settings > Runtimes & storage
-should show these bundled assets as ready; nothing needs to be downloaded for
-them.
+Back up the upgraded profile before attempting a rollback so the v0.5 state is
+not lost.
 
 ## Uninstall
 
-Use **Settings > Apps > Installed apps > Juno > Uninstall**, or the uninstaller
-in `%LOCALAPPDATA%\Programs\juno`. The uninstaller removes the program files.
-Your Juno data, conversations and credentials are kept unless you explicitly
-reset them.
+Use **Settings → Apps → Installed apps → Juno → Uninstall**, or the uninstaller in
+`%LOCALAPPDATA%\Programs\juno`.
+
+The uninstaller removes the program files. Your Juno data, conversations and
+credentials are kept unless you explicitly remove them. See
+[PRIVACY.md](PRIVACY.md) for the two data folders.
 
 ## Updates
 
-Updates are manual in this Beta. Juno may fetch an Ed25519-signed release
-announcement and open the release page. It does not download or run an
-installer automatically. See [SECURITY.md](SECURITY.md).
+Updates are manual in this beta. Juno may show a signed release announcement and
+open its approved download page; it does not download or run an installer. See
+[SECURITY.md](SECURITY.md).
+
+The in-app announcement feed is not yet pointed at v0.5, so check the
+[releases page](https://github.com/tanishkfr/juno-beta/releases) for new builds.
+
+## Troubleshooting
+
+| Symptom | What to try |
+|---|---|
+| “Windows protected your PC” | Verify the SHA-256, then **More info → Run anyway**. Do not disable security controls. |
+| The installer is blocked by policy | Stop and contact your administrator. Do not bypass application control. |
+| Juno opens to “Your workspace is unavailable” | Choose another companion or start a new chat. If it persists for a thread you need, see `conversation-load-unavailable` in [KNOWN_ISSUES.md](KNOWN_ISSUES.md). |
+| Code is unavailable | Confirm the external OMP runtime is installed and authenticated, then check the Code model catalogue in Settings. |
+| A provider is “connected” but no models appear | Refresh or reconnect the provider account; ChatGPT-plan catalogues are account-scoped. |
+| A saved model will not run | The provider may have retired it. Pick a currently offered model; Juno will not silently substitute one. |
+
+For anything else, use [FEEDBACK.md](FEEDBACK.md).
