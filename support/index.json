@@ -23,7 +23,7 @@
     },
     {
       "releaseTag": "v0.5.1-rc.1",
-      "approved": false,
+      "approved": true,
       "issuesPath": "support/v0.5.1-rc.1/known-issues.json",
       "documents": {
         "install": "support/v0.5.1-rc.1/INSTALL.md",
