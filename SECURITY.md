@@ -1,6 +1,6 @@
-# Security and integrity — Juno v0.5 Beta
+# Security and integrity â€” Juno v0.5.1 Beta
 
-Version `0.5.0-rc.1` · Windows 11 x64 · Unsigned · Manual updates
+Version `0.5.1-rc.1` Â· Windows 11 x64 Â· Unsigned Â· Manual updates
 
 ## Signing status
 
@@ -17,12 +17,12 @@ installer as signed, trusted by SmartScreen, or publisher-verified.
 
 | File | Bytes | SHA-256 |
 |---|---:|---|
-| `juno-0.5.0-rc.1-setup.exe` | 261,843,896 | `B8C931EC42D7892B5FA8E64781220A3A270895AD586636801E53C1452CEBB5C6` |
+| `juno-0.5.1-rc.1-setup.exe` | 261,849,280 | `A4375A29888956BE688ADB1BC714A10D2F84B04BCB349676ABCA9B0CED3B09BF` |
 
 Verify:
 
 ```powershell
-Get-FileHash .\juno-0.5.0-rc.1-setup.exe -Algorithm SHA256
+Get-FileHash .\juno-0.5.1-rc.1-setup.exe -Algorithm SHA256
 ```
 
 Download only from:
@@ -30,7 +30,7 @@ Download only from:
 <https://github.com/tanishkfr/juno-beta/releases>
 
 The release page is the only official source. Do not use third-party mirrors,
-repacks or “fixed” installers.
+repacks or â€œfixedâ€ installers.
 
 ## What the checksum proves
 
@@ -43,7 +43,7 @@ neither is a substitute for Authenticode.
 
 - Do not disable Microsoft Defender, SmartScreen, Smart App Control, antivirus,
   firewall or any other Windows security control.
-- If SmartScreen offers **More info → Run anyway**, use it only after the checksum
+- If SmartScreen offers **More info â†’ Run anyway**, use it only after the checksum
   matches.
 - If your organization blocks unsigned installers, stop. Do not attempt to bypass
   application control, WDAC, AppLocker or endpoint protection.
@@ -61,7 +61,7 @@ neither is a substitute for Authenticode.
   release page. It does not fetch the installer.
 - A signed announcement may carry its own HTTPS download page. It is validated
   before it is opened; invalid signatures and non-HTTPS or credential-bearing
-  URLs are refused, and the build’s trusted page remains the fallback.
+  URLs are refused, and the buildâ€™s trusted page remains the fallback.
 - The in-app **Verify downloaded installer** action hashes a file you select and
   compares it with a checksum file you select. It refuses a malformed file, a
   checksum mismatch, an unknown channel and an unapproved downgrade.
@@ -99,12 +99,12 @@ Please report security problems privately. Do not open a public issue with explo
 details.
 
 1. **Email `madebytanishk@gmail.com`** with:
-   - the Juno version (`0.5.0-rc.1`) and Windows build;
+   - the Juno version (`0.5.1-rc.1`) and Windows build;
    - the affected area (installer, local server, permissions, provider handling,
      update metadata, Code/Mission boundary);
    - reproduction steps and impact;
    - whether the issue is already public.
-2. Alternatively use GitHub’s private vulnerability reporting on this repository
+2. Alternatively use GitHubâ€™s private vulnerability reporting on this repository
    if it is enabled for your account.
 3. **Never include** live API keys, tokens, cookies, credentials, personal data or
    private documents. Redact paths and screenshots.
@@ -113,5 +113,5 @@ What to expect: an acknowledgement when the report is reviewed, a request for a
 minimal reproduction if needed, and credit if you want it. This is a public beta
 with no guaranteed response time or bounty program.
 
-Please do not test against other people’s data, and do not run destructive tests
+Please do not test against other peopleâ€™s data, and do not run destructive tests
 on work you cannot lose.

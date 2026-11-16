@@ -1,135 +1,116 @@
-# Juno v0.5 Beta — Release Notes
+# Juno v0.5.1 Beta — Security & Reliability
 
-**Public Beta · Windows 11 x64 · Version `0.5.0-rc.1` · Unsigned installer · Manual updates**
+**Public beta · Windows 11 x64 · Version 0.5.1 · Unsigned installer · Manual updates**
 
-Release date: 2026-11-15
+Juno v0.5.1 is a maintenance release for the v0.5 public beta. It keeps the product and provider
+routes from v0.5.0 and focuses on security, reliability and clearer setup.
 
-| Field | Value |
-|---|---|
-| Public title | Juno v0.5 Beta |
-| Installed version | `0.5.0-rc.1` (Settings shows “Juno v0.5 Beta · 0.5.0-rc.1”) |
-| Installer | `juno-0.5.0-rc.1-setup.exe` |
-| Size | 261,843,896 bytes (249.7 MiB) |
-| SHA-256 | `B8C931EC42D7892B5FA8E64781220A3A270895AD586636801E53C1452CEBB5C6` |
-| Source revision | `9a53d136` |
-| Platform | Windows 11 x64 |
-| Signature | **NotSigned** |
+> The public release is titled **v0.5.1**. The installed application reports its internal build
+> version as **`0.5.1-rc.1`**. This is a beta, not a stable general-availability release.
 
-> This is a release candidate for the public beta, not a stable `0.5.0` binary.
-> If you are looking for an older build, every published release remains on the
-> [releases page](https://github.com/tanishkfr/juno-beta/releases).
+## Download
 
-## Highlights
+| File | Size |
+|---|---:|
+| `juno-0.5.1-rc.1-setup.exe` | 261,849,280 bytes (249.7 MiB) |
 
-### One unified, companion-first workspace
+Download the installer and `SHA256SUMS.txt` from:
 
-The separate Bot and Code modes are gone. A single workspace carries the
-companion sidebar, the conversation, Code and Mission work, with one composer and
-one history. Code work stays attached to the conversation that authorized it.
+https://github.com/tanishkfr/juno-beta/releases/tag/v0.5.1-rc.1
 
-### Refined sidebar, composer and atmosphere
+That release page is the only official source. Do not use third-party mirrors or repacks.
 
-- Recent Work sits directly below the companions, grouped by project, with
-  compact status marks and clear selected states.
-- The composer is a single compact surface: attachments and secondary tools in
-  the toolbar, **Code** and **Mission** as first-class actions, a clean multiline
-  input, and the same keyboard and model controls as before.
-- A Juno-inspired pixel atmosphere fills a genuinely empty conversation and
-  settles into a neutral canvas on the first message. Existing threads open in
-  the settled state, and reduced-motion preferences are respected.
-- Both the OLED-black and warm light themes were refined, with contrast checked
-  across surfaces. Replies and your own messages carry the reading weight; tool
-  activity stays quiet.
-
-### Missions with preview and durable recovery
-
-A Mission is previewed with its objective, expected effects, model route and
-authorization boundary before anything runs. After you authorize it, Juno hands
-the work to Code without asking you to repeat the request. A pending decision,
-the exact child identity and its attempt survive a restart; an uncertain side
-effect is never replayed and a second child is never created.
-
-### Read-only Code answers
-
-A Code question that asks for an explanation — or that says no file may change —
-is a normal, verifiable request. Juno evaluates the run's own before/after
-fingerprints: nothing changed is a pass, and a worker that writes during a
-read-only run fails validation and is never offered for transfer. A read-only run
-never claims Ariadne verification.
-
-### Ariadne verification
-
-Ariadne locally verifies owner-declared checks and the Code revision it is given.
-Juno shows “the model said so” and “independently verified” as different things.
-Ariadne does not prove every model statement or external side effect.
-
-### Provider and model fixes
-
-- ChatGPT-plan catalogues are read from the connected account and report a retry
-  state instead of a blank list.
-- An explicit model choice is never silently replaced; a retired model is
-  reported and you are asked to choose another.
-- A rejected credential found while reading a catalogue is reported as an
-  authentication problem, not a catalogue outage.
-
-### Update announcements
-
-A signed manifest can announce a newer release and name its own HTTPS download
-page. The page is validated before it is opened, invalid signatures and unsafe
-URLs are refused, and **nothing is downloaded or installed automatically**.
-
-## Download and verify
-
-Download `juno-0.5.0-rc.1-setup.exe` and `SHA256SUMS.txt` from the release page:
-
-<https://github.com/tanishkfr/juno-beta/releases/tag/v0.5.0-rc.1>
+## Verify before installing
 
 ```powershell
-Get-FileHash .\juno-0.5.0-rc.1-setup.exe -Algorithm SHA256
+Get-FileHash .\juno-0.5.1-rc.1-setup.exe -Algorithm SHA256
+Get-Content .\SHA256SUMS.txt
 ```
 
 Expected:
 
 ```text
-B8C931EC42D7892B5FA8E64781220A3A270895AD586636801E53C1452CEBB5C6  juno-0.5.0-rc.1-setup.exe
+A4375A29888956BE688ADB1BC714A10D2F84B04BCB349676ABCA9B0CED3B09BF  juno-0.5.1-rc.1-setup.exe
 ```
 
-The installer is **unsigned**. Windows may show Unknown Publisher or SmartScreen.
-Verify the checksum, and do not disable Windows security controls. Full steps:
-[INSTALL.md](INSTALL.md).
+The installer is **unsigned**. Windows may show Unknown Publisher or SmartScreen. Continue only
+after the SHA-256 matches. Do not disable Windows security protections.
 
-## Upgrading from v0.4.x
+## Security
 
-1. Back up your workspace first (Settings → Backups → Export full backup, or a
-   copy of `%USERPROFILE%\.juno`).
-2. Quit Juno completely.
-3. Run the v0.5 installer. It upgrades in place and preserves companions,
-   conversations, credentials, settings and work items.
-4. Open Juno and confirm your provider connections and model pins.
+- **Local data is isolated between Windows accounts.** v0.5.0 could expose some local Juno data
+  to another Windows user on the same PC under specific local conditions. v0.5.1 requires the
+  desktop capability, or a paired session, for data routes. Health and static identity routes
+  remain public.
+- **Existing v0.5.0 beta users should upgrade.** The fix protects the installed app; the older
+  build remains exposed until it is replaced.
+- **Port conflicts fall back cleanly.** Juno checks a loopback port before starting its server
+  and uses the next port instead of failing with an address-in-use error.
 
-An in-place downgrade is **not supported**. Restore a pre-upgrade backup into a
-fresh profile if you need to return to an earlier build.
+## Reliability
+
+- **OpenCode works after a managed install.** Juno installs the 2.x `@opencode/cli` package,
+  discovers models without restarting, and explains when a free catalogue is outside the managed
+  Bot chain.
+- **Provider cards remain available.** Configured providers no longer disappear while the
+  optional catalogue is loading, and the list survives restart.
+- **ChatGPT state and model selection are clearer.** A single eligible model saves correctly,
+  a valid connection is not shown as signed out after restart, and quota prose is reported as a
+  usage limit rather than an authentication failure.
+- **Reasoning alone is not an answer.** A provider that ends with reasoning and no answer text
+  now reports a failed turn.
+- **Stale conversations recover safely.** A remembered thread that no longer exists no longer
+  strands the workspace; Juno returns to the companion's valid conversation and keeps the stored
+  transcript.
+- **Conversation and model state persist after restart.**
+
+## Usability
+
+- Onboarding now explains when a provider is required, what can be skipped, and what remains
+  usable without one.
+- Missing runtimes and unconnected providers read as setup states, not red failures.
+- Coding and Computer control status reflect the actual runtime and capability state.
+- Companion selection uses a radio group with arrow-key navigation.
+- Settings navigation, provider rows and selected states are clearer; the right-side workspace
+  panel slides in Bot and Code modes and sits closer to the conversation.
+- The Code panel's first tool tab has breathing room from its rounded frame.
+
+## Requirements and disclosures
+
+- **Windows 11 x64** is the qualified platform. Windows 10, Windows on ARM64, 32-bit Windows,
+  macOS and Linux are not qualified for this beta.
+- **A provider account is required for model access.** Provider accounts, subscriptions, network
+  access and quota are your responsibility. Juno does not include model capacity.
+- **Code work needs the external OMP runtime.** Juno bundles its Code coordinator (Boreal), the
+  Ariadne verifier and the Codex runtime, but not OMP.
+- **Updates are manual.** Juno does not download or run installers for you. The signed update
+  announcement feed still describes the previous beta (0.4.2-rc.3); check this release page and
+  the website for newer builds.
+- **No in-app v0.5.1 announcement is expected** because the production update-signing key is not
+  available for this release.
+- **Optional downloads:** the browser engine, Android platform tools, cloudflared and the Whisper
+  model are installed on request where applicable.
+- **Unsigned installer:** no Authenticode publisher identity and no SmartScreen reputation.
+  SHA-256 proves integrity, not who built the file.
 
 ## Known issues
 
-The complete, current list — including the one open issue and the accepted beta
-limitations — is in [KNOWN_ISSUES.md](KNOWN_ISSUES.md), and the same records are
-published as structured data at
-[`support/v0.5.0-rc.1/known-issues.json`](support/v0.5.0-rc.1/known-issues.json).
+See [KNOWN_ISSUES.md](KNOWN_ISSUES.md) and the versioned registry at
+[support/v0.5.1-rc.1/known-issues.json](support/v0.5.1-rc.1/known-issues.json).
 
-Highlights:
+Notable limitations: provider quota and availability are external; a clean Windows 11 VM run
+was not part of this qualification; the installer is unsigned; v0.5.1 is manual-update only;
+historical conversations without a durable companion association may need backup recovery.
 
-- The installer is unsigned and updates are manual.
-- Code execution needs the external OMP runtime, which is not bundled.
-- External providers require your own account, access and quota.
-- There is no workspace-wide spending hard cap.
-- A carried-over conversation can fail to load on an upgraded profile (see the
-  known-issues list for details).
+## Upgrade from v0.5.0
 
-## Not claimed
+1. Keep a copy of your existing Juno workspace if you want a rollback path.
+2. Close Juno.
+3. Verify the v0.5.1 SHA-256.
+4. Run the installer. It installs in place, per user, and preserves companions, conversations,
+   provider settings, model selections, Mission/Code history and preferences.
+5. Reopen Juno and confirm your companions and conversations are present.
+6. Review the security note and upgrade any other Windows account that runs v0.5.0.
 
-- No Authenticode publisher trust and no SmartScreen reputation.
-- No automatic installer download or installation.
-- No guarantee that an external provider keeps offering a given model.
-- No general remote/paired-device mutation support.
-- No workspace-wide spending guarantee.
+There is no in-place downgrade. Restore a pre-upgrade backup into a fresh profile if you need to
+return to an older build.

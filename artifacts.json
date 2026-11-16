@@ -1,21 +1,21 @@
 {
   "schema": "juno-release-artifacts-1",
   "product": "Juno",
-  "version": "0.5",
-  "buildCandidate": "0.5.0-rc.1",
-  "releaseTitle": "Juno v0.5 Beta — Unified Companion Experience",
+  "version": "0.5.1",
+  "buildCandidate": "0.5.1-rc.1",
+  "releaseTitle": "Juno v0.5.1 Beta — Security & Reliability",
   "releaseType": "public-beta",
   "channel": "beta",
   "platform": "win32-x64",
   "supportedWindows": "Windows 11 x64",
-  "releaseDate": "2026-11-15",
-  "sourceCommit": "9a53d13604cbd95d191bb1698fe35f6a019f1936",
+  "releaseDate": "2026-11-16",
+  "sourceCommit": "f91f2ebd1a6f82de4a8b96ebf89c29ff16fa017d",
   "sourceAvailability": "Private application source is not part of this distribution repository. Only public release documentation and metadata are published here.",
   "artifactProvenance": {
-    "qualifiedCandidate": "0.5.0-rc.1",
-    "qualifiedCompactArtifact": "release/juno-0.5.0-rc.1-setup.exe",
+    "qualifiedCandidate": "0.5.1-rc.1",
+    "qualifiedCompactArtifact": "release/juno-0.5.1-rc.1-setup.exe",
     "publicationMethod": "Byte-identical copy of the qualified production installer, uploaded without modifying its contents.",
-    "verification": "The published asset was re-downloaded from the draft release and hashed; it matches the qualified bytes exactly and embeds sourceCommit 9a53d136 and production appId com.agent.app."
+    "verification": "The qualified installer was built from frozen source f91f2ebd, embedded sourceCommit f91f2ebd and appId com.agent.app, installed on the test identity, and upgraded in place over a genuine v0.5.0-rc.1 profile in an isolated standard Windows user."
   },
   "buildIdentity": "Juno",
   "appId": "com.agent.app",
@@ -31,16 +31,16 @@
     "signedMetadata": "Ed25519-signed announcement only; never downloads or executes an installer",
     "signedAutomaticInstallerUpgrade": "not qualified",
     "announcedVersion": "0.4.2-rc.3",
-    "versionNote": "The signed announcement feed still describes the previous beta. Until it is republished for 0.5.0-rc.1, the releases page is authoritative and no v0.5 in-app announcement is expected."
+    "versionNote": "The production signing key is unavailable on the build host. The signed feed remains unchanged at 0.4.2-rc.3. v0.5.1 is a manual GitHub/website download and no in-app announcement is expected."
   },
   "artifacts": [
     {
       "variant": "compact",
-      "fileName": "juno-0.5.0-rc.1-setup.exe",
-      "bytes": 261843896,
-      "sha256": "b8c931ec42d7892b5fa8e64781220a3a270895ad586636801e53c1452cebb5c6",
+      "fileName": "juno-0.5.1-rc.1-setup.exe",
+      "bytes": 261849280,
+      "sha256": "a4375a29888956be688adb1bc714a10d2f84b04bcb349676abca9b0ced3b09bf",
       "default": true,
-      "provenance": "Byte-identical copy of the qualified 0.5.0-rc.1 production compact installer.",
+      "provenance": "Byte-identical copy of the qualified 0.5.1-rc.1 production compact installer.",
       "includes": [
         "unified companion-first workspace",
         "Companions and Recent Work",
@@ -63,14 +63,13 @@
     }
   ],
   "verification": {
-    "installedUiBotReadOnlyCode": "27/27",
-    "installedMissionAriadneRestart": "18/18",
-    "frozenCoordinatorProbe": "8/8",
-    "electronTests": "949 passed, 0 failed, 11 skipped (960 total)",
-    "securityLane": "ok (electron permission 54/54)",
-    "fastLane": "10,275 passed, 9 failed, 109 skipped; the 9 are recorded baseline/environment entries",
+    "crossUserIsolation": "PASS — tokenless data reads/mutations 403 across two real Windows identities; authenticated reads 200; profile files denied",
+    "productionIdentityUpgrade": "PASS — v0.5.0-rc.1 → v0.5.1-rc.1; companions, conversations, Mission/Code history, provider settings, model selection and preferences preserved; second install idempotent",
+    "fastLane": "PASS — 10,298 passed, 109 skipped, 8 documented baseline/environment failures, zero regressions",
+    "securityLane": "PASS — 583 passed, 3 skipped, 6 documented environment failures; electron permission 54/54",
     "installerIsolation": true,
-    "productionProfileUntouched": true
+    "productionProfileUntouched": true,
+    "signedFeedUnchanged": true
   },
-  "internalVersion": "0.5.0-rc.1"
+  "internalVersion": "0.5.1-rc.1"
 }

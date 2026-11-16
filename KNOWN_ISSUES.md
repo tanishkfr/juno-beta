@@ -1,107 +1,74 @@
-# Known issues and limitations — Juno v0.5 Beta
+# Known issues and limitations — Juno v0.5.1 Beta
 
-Release `0.5.0-rc.1` · 2026-11-15 · Windows 11 x64 · Unsigned · Manual updates
+Release `0.5.1-rc.1` · 2026-11-16 · Windows 11 x64 · Unsigned · Manual updates
 
-This page lists what is currently known about **Juno v0.5 Beta**. It is
-versioned: each item names the versions it affects, and resolved items say which
-release fixed them. The same records are published as structured data for the
-website at
-[`support/v0.5.0-rc.1/known-issues.json`](support/v0.5.0-rc.1/known-issues.json),
-so the site and this page cannot disagree.
+This page lists the public limitations for **Juno v0.5.1 Beta**. The same records are published
+as structured data at
+[`support/v0.5.1-rc.1/known-issues.json`](support/v0.5.1-rc.1/known-issues.json), so the website
+and this page cannot disagree. Older releases keep their own documentation:
+[v0.5.0](support/v0.5.0-rc.1/known-issues.json) and
+[v0.4.2](support/v0.4.2/KNOWN_ISSUES.md).
 
-Older releases keep their own documentation:
-[v0.4.2 known issues](support/v0.4.2/KNOWN_ISSUES.md) ·
-[v0.4.2 release](https://github.com/tanishkfr/juno-beta/releases/tag/v0.4.2).
+A listed limitation is a known boundary, not a promise that the area is finished. Nothing here is
+a security advisory; see [SECURITY.md](SECURITY.md) for responsible disclosure.
 
-A listed limitation is a known boundary, not a promise that the area is
-finished. Nothing here is a security advisory; see [SECURITY.md](SECURITY.md) for
-responsible disclosure.
+## Security
 
-## Open issues
+### `cross-user-loopback-reads` — local data isolation between Windows accounts (resolved)
 
-### `conversation-load-unavailable` — A carried-over conversation can fail to load
+- **Affected:** `0.5.0-rc.1`
+- **Fixed in:** `0.5.1-rc.1`
+- **What changed:** earlier v0.5 builds could expose some local Juno data to another Windows user
+  on the same PC under specific local conditions. v0.5.1 requires the packaged desktop
+  capability, or a paired session, for local data routes. Health and static identity routes remain
+  public. Existing v0.5.0 users should upgrade manually.
 
-- **Affects:** `0.5.0-rc.1`
-- **Status:** open · **Severity:** medium
-- **What happens:** on a profile upgraded from an earlier beta — especially one
-  restored from a backup — a companion can remember a conversation that is no
-  longer attached to it. Juno then shows *“Your workspace is unavailable. Check
-  the server connection in Advanced settings, then retry.”* and that transcript
-  does not load.
-- **Impact:** the affected conversation cannot be opened from that companion.
-  The conversation is still stored in your profile; it is not deleted. Other
-  companions and new conversations are unaffected.
-- **Workaround:** none verified yet. Report it with your version if it blocks
-  work; keep a profile backup.
+## Open limitations
 
-## Limitations
-
-1. **`windows-11-x64-only` — Windows 11 x64 is the only qualified platform.**
-   Windows 10, ARM64, 32-bit Windows, macOS and Linux are not qualified for this
-   beta.
-2. **`unsigned-installer` — the installer is unsigned.** No Authenticode
-   publisher identity and no SmartScreen reputation. Windows may warn or block.
+1. **`windows-11-x64-only`** — Windows 11 x64 is the only qualified platform. Windows 10, ARM64,
+   32-bit Windows, macOS and Linux are not qualified.
+2. **`unsigned-installer`** — no Authenticode publisher identity or SmartScreen reputation.
    Verify the published SHA-256; do not disable Windows security controls.
-3. **`manual-updates` — updates are manual.** Juno can announce a signed release
-   and open its download page, but it never downloads or runs an installer for
-   you.
-4. **`no-in-place-downgrade` — an older build may not read v0.5 data.** Restore a
-   pre-upgrade backup into a fresh profile instead of pointing an older installer
-   at upgraded data.
-5. **`provider-access` — external providers need your own access.** Accounts,
-   subscriptions, network access and quota are required; catalogues, availability
-   and billing are controlled by the provider.
-6. **`chatgpt-models-account-scoped` — ChatGPT-plan models are account-scoped.**
-   The list comes from the connected account and can be empty or change. A saved
-   model that is no longer offered is reported, never silently replaced.
-7. **`code-requires-omp` — Code work needs the external OMP runtime.** Juno
-   bundles its Code coordinator (Boreal), the Ariadne verifier and the Codex
-   runtime, but not OMP, and it cannot reuse every desktop provider login for
-   Code.
-8. **`no-workspace-spend-cap` — there is no enforceable workspace-wide spending
-   cap.** Per-task ceilings and refusals for unpriced workers still apply.
-9. **`ariadne-scope` — Ariadne verification is scoped.** It verifies
-   owner-declared checks and the Code revision it is given, not every model
-   statement or side effect.
-10. **`read-only-code-scope` — read-only Code observes the project copy it was
-    given.** Tool-owned trees (dependencies, build output, version-control
-    metadata and caches) are excluded from the comparison, a project containing a
-    link or reparse point is refused before it is copied, and changes another
-    program makes to the project during the run are not reported.
-11. **`update-notice-not-connected` — in-app update notices are not yet pointed
-    at this release.** The signed feed still describes the previous beta; until
-    it is republished, the releases page is authoritative.
-12. **`remote-paired-unqualified` — modeled actions are desktop-scoped.** The
-    paired-client authorization defect is fixed, but a live paired-device
-    mutation run was not part of this qualification.
-13. **`accessibility-walkthrough-partial` — the screen-reader walkthrough is
-    partial.** Keyboard navigation, focus, contrast, scaling, forced colours and
-    reduced motion are covered; a full NVDA/Narrator session was not completed.
-14. **`optional-runtimes-download` — some Windows integrations are optional
-    downloads.** The browser engine, Android platform tools and cloudflared are
-    installed on request from Settings; a download that is still running is not
-    treated as installed.
+3. **`manual-updates`** — Juno never downloads or runs an installer for you. The signed feed still
+   describes `0.4.2-rc.3`; v0.5.1 is a manual download and no in-app announcement is expected.
+4. **`no-in-place-downgrade`** — an older build may not read v0.5.1 data. Restore a pre-upgrade
+   backup into a fresh profile instead.
+5. **`provider-access`** — provider accounts, subscriptions, network access and quota are
+   required. Catalogues, availability and billing are controlled by the provider.
+6. **`provider-quota`** — provider quota and rate limits are external. Juno reports the condition
+   it observed; it cannot reset or bypass a provider quota.
+7. **`chatgpt-models-account-scoped`** — the ChatGPT-plan model list comes from the connected
+   account and can be empty or change. A saved model that is no longer offered is reported, never
+   silently replaced.
+8. **`code-requires-omp`** — Code execution needs the external OMP runtime. Boreal, Ariadne and
+   Codex are bundled; OMP is not.
+9. **`no-workspace-spend-cap`** — per-task ceilings apply, but Juno cannot enforce a hard
+   workspace-wide cap across every external provider route.
+10. **`ariadne-scope`** — Ariadne verifies owner-declared checks and the Code revision it is given;
+    it does not prove every model statement or tool side effect.
+11. **`read-only-code-scope`** — read-only Code observes the project copy it was given; changes
+    made by another program during the run are outside that copy.
+12. **`remote-paired-unqualified`** — the paired-device authorization suites pass, but a live
+    paired-device mutation run was not part of this qualification. Keep modeled actions in the
+    desktop app.
+13. **`accessibility-walkthrough-partial`** — keyboard, focus, contrast, text scaling, forced
+    colours and reduced motion are covered; a full NVDA/Narrator speech-output session was not
+    completed for this release.
+14. **`optional-runtimes-download`** — the browser engine, Android platform tools, cloudflared and
+    Whisper are optional downloads; a download still running is not treated as installed.
+15. **`clean-vm-not-run`** — a clean Windows 11 VM install/first run was not part of this
+    qualification. The interactive owner-session install passed.
 
-## Resolved in 0.5.0-rc.1
+## Resolved in v0.5.1
 
-1. **`read-only-code-without-target`** — a read-only Code question with no file
-   target or command was refused for having no acceptance check. It now derives a
-   no-change criterion and passes only when nothing changed. *Fixed in
-   `0.5.0-rc.1`.*
-2. **`value-change-read-as-investigation`** — a request such as “Set the exported
-   value to 2” was routed as an investigation, so its correct edit failed. It is
-   now recognized as a mutating request. *Fixed in `0.5.0-rc.1`.*
-3. **`credential-rejection-shown-as-catalog-outage`** — a rejected credential
-   found during catalogue discovery looked like a catalog outage. It is now
-   reported as an authentication problem with the action to take. *Fixed in
-   `0.5.0-rc.1`.*
-4. **`update-announcement-no-release-page`** — an update announcement could not
-   name its own download page. A signed announcement may now carry its own
-   validated HTTPS release page, with the build’s page as fallback. *Fixed in
-   `0.5.0-rc.1`.*
-
-## Reporting
-
-Use [FEEDBACK.md](FEEDBACK.md) for bugs and feature requests, and
-[SECURITY.md](SECURITY.md) for security problems. Do not post credentials,
-private file paths or personal content in a public issue.
+- `conversation-load-unavailable` — a stale local conversation pointer no longer strands the
+  workspace; the companion returns to a valid conversation and stored messages are kept.
+- `chatgpt-quota-shown-as-auth` — provider usage-limit prose is no longer shown as a connection
+  failure.
+- `reasoning-only-answer` — a response with reasoning but no answer text now fails the turn
+  instead of being shown as the reply.
+- `opencode-managed-install` — the managed runtime uses `@opencode/cli` 2.x and refreshes models
+  without restarting the app.
+- `provider-cards-disappear` — provider cards remain present while the optional catalogue loads
+  and after restart.
+- `chatgpt-single-model-save` — a sole eligible model saves correctly.
